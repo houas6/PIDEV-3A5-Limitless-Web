@@ -8,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Produit
  *
- * @ORM\Table(name="produit", indexes={@ORM\Index(name="FK_Pu", columns={"id_user"})})
- * @ORM\Entity
+ * @ORM\Table(name="produit")
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
  */
 class Produit
@@ -60,6 +59,17 @@ class Produit
      * })
      */
     private $idUser;
+
+    /**
+     * @var \Categorie
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idcategorie", referencedColumnName="idcategorie")
+     *  })
+     */
+    private $idcategorie;
+
 
     
 
@@ -124,6 +134,17 @@ class Produit
 
         return $this;
     }
+    public function getIdcategorie(): ?Categorie
+    {
+        return $this->idcategorie;
+    }
+
+    public function setIdcategorie(?Categorie $categorie): self
+    {
+        $this->idcategorie = $categorie;
+
+        return $this;
+    }
 
 
 
@@ -138,4 +159,7 @@ class Produit
 
         return $this;
     }
+
+    
+
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Utilisateur
  *
- * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="mail", columns={"mail"}), @ORM\UniqueConstraint(name="cin", columns={"cin"})})
+ * @ORM\Table(name="utilisateur")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */

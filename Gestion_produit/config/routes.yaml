@@ -22,3 +22,29 @@ app_produit_delete:
     path: /{id_produit}
     methods: POST
     controller: App\Controller\ProduitController::delete
+
+app_categorie_index:
+    path: /categorie
+    methods: GET
+    controller: App\Controller\CategorieController::index
+
+app_categorie_new:
+    path: /categorie/new
+    methods: [GET, POST]
+    controller: App\Controller\CategorieController::new
+
+app_categorie_show:
+    path: /categorie/{idcategorie}
+    methods: GET
+    controller: App\Controller\CategorieController::show
+
+app_categorie_edit:
+    path: /categorie/{idcategorie}/edit
+    methods: [GET, POST]
+    controller: App\Controller\CategorieController::edit
+
+app_categorie_delete:
+    path: /categorie/{idcategorie}
+    methods: POST
+    controller: App\Controller\CategorieController::delete
+

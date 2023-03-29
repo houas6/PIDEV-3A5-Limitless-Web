@@ -39,6 +39,7 @@ public function new(Request $request): Response
         $produit->setDescription($data->getDescription());
         $produit->setIdUser($data->getId_Produit());
         $produit->setImage($data->getImage());
+        $produit->setIdCategorie($data->getIdCategorie());
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($produit);

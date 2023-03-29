@@ -15,6 +15,7 @@
                 <th>Description</th>
                 <th>idUser</th>
                 <th>Image</th>
+                <th>Categorie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,6 +29,8 @@
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.idUser }}</td>
                 <td>{{ produit.image }}</td>
+                <td>{{ produit.idcategorie.nomcategorie }}</td>
+
                 <td>
                     <a href="{{ path('app_produit_show', {'id_produit': produit.id_produit}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}">edit</a>
