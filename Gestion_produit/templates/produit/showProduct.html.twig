@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Products</h1>
+
+    {% if back is defined %}
+        {% if back == 'success' %}
+            <div class="alert alert-success">Search successful!</div>
+        {% elseif back == 'failure' %}
+            <div class="alert alert-danger">No products found!</div>
+        {% endif %}
+    {% endif %}
+
+    <form method="POST" class="form-inline">
+        <div class="form-group">
+            <label for="optionsearch">Search by:</label>
+            <select class="form-control" id="optionsearch" name="optionsearch">
+                <option value="titre">Title</option>
+                <option value="description">Description</option>
+                <option value="quantite">Quantity</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Search">Search:</label>
+            <input type="text" class="form-control" id="Search" name="Search">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <br>
+
+    <form method="POST" class="form-inline">
+        <div class="form-group">
+            <label for="optionsRadios">Sort by:</label>
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="titre" checked>Title</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="description">Description</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="quantite">Quantity</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID produit</th>
+                <th>Nom produit</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+            <tr>
+                
+                <td>{{ produit.id_Produit }}</td>
+                <td>{{ produit.nom_produit }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.idUser }}</td>
+                <td>
+            {% if produit.image %}
+                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nom_produit }}">
+            {% else %}
+                No image
+            {% endif %}
+        </td>
+                <td>{{ produit.idcategorie.nomcategorie }}</td>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

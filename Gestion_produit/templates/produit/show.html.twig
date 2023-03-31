@@ -30,8 +30,11 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ produit.image }}</td>
+                {% if produit.image %}
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nom_produit }}">
+                {% endif %}
             </tr>
+
             <tr>
                 <th>Categorie</th>
                 <td>{{ produit.idcategorie.nomcategorie }}</td>

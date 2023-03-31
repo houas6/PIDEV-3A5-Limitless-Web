@@ -9,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 #[Route('/produit')]
 class ProduitController extends AbstractController
@@ -24,24 +28,28 @@ class ProduitController extends AbstractController
     /**
  * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
  */
-public function new(Request $request): Response
+public function new(Request $request, EntityManagerInterface $entityManager,ProduitRepository $repository): Response
 {
     $produit = new Produit();
     $form = $this->createForm(ProduitType::class, $produit);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
+        // Get the uploaded file
+        $file = $form->get('image')->getData();
+        
+        if ($file) {
+            // Generate a unique filename
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            
+            // Move the file to the uploads directory
+            $file->move($this->getParameter('uploads'), $filename);
+            
+            // Save the filename to the database
+            $produit->setImage($filename);
+        }
 
-        // Set the values of the Produit object
-        $produit->setNomProduit($data->getNomProduit());
-        $produit->setPrix($data->getPrix());
-        $produit->setDescription($data->getDescription());
-        $produit->setIdUser($data->getId_Produit());
-        $produit->setImage($data->getImage());
-        $produit->setIdCategorie($data->getIdCategorie());
-
-        $entityManager = $this->getDoctrine()->getManager();
+        
         $entityManager->persist($produit);
         $entityManager->flush();
 
@@ -55,6 +63,7 @@ public function new(Request $request): Response
 }
 
 
+
 public function show(Request $request, Produit $produit): Response
 {
     return $this->render('produit/show.html.twig', [
@@ -65,7 +74,7 @@ public function show(Request $request, Produit $produit): Response
 
 
 #[Route('/{id_produit}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
-public function edit(Request $request, Produit $produit): Response
+public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
 {
     $form = $this->createForm(ProduitType::class, $produit, [
         'action' => $this->generateUrl('app_produit_edit', ['id_produit' => $produit->getId_Produit()])
@@ -73,7 +82,7 @@ public function edit(Request $request, Produit $produit): Response
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager = $this->getDoctrine()->getManager();
+        
         $entityManager->flush();
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
@@ -86,15 +95,77 @@ public function edit(Request $request, Produit $produit): Response
 }
 
 #[Route('/{id_produit}', name: 'app_produit_delete', methods: ['POST'])]
-public function delete(Request $request, Produit $produit): Response
+public function delete(Request $request, Produit $produit,EntityManagerInterface $entityManager): Response
 {
     if ($this->isCsrfTokenValid('delete'.$produit->getId_Produit(), $request->request->get('_token'))) {
-        $entityManager = $this->getDoctrine()->getManager();
+        
         $entityManager->remove($produit);
         $entityManager->flush();
     }
 
     return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
 }
+
+#[Route('/showProduct', name: 'app_produit_index1', methods: ['GET','POST'])]
+    public function index1(EntityManagerInterface $entityManager,Request $request,ProduitRepository $produitRepository): Response
+    {
+        $produits = $entityManager
+            ->getRepository(Produit::class)
+            ->findAll();
+
+            /////////
+            $back = null;
+            
+            if($request->isMethod("POST")){
+                if ( $request->request->get('optionsRadios')){
+                    $SortKey = $request->request->get('optionsRadios');
+                    switch ($SortKey){
+                        case 'titre':
+                            $produits = $produitRepository->SortBytitreProduit();
+                            break;
+    
+                        case 'description':
+                            $produits = $produitRepository->SortBydescriptionProduit();
+                            break;
+
+                        case 'quantite':
+                            $produits = $produitRepository->SortByquantiteProduit();
+                            break;
+    
+    
+                    }
+                }
+                else
+                {
+                    $type = $request->request->get('optionsearch');
+                    $value = $request->request->get('Search');
+                    switch ($type){
+                        case 'quantite':
+                            $produits = $produitRepository->findByquantiteproduit($value);
+                            break;
+    
+                        case 'description':
+                            $produits = $produitRepository->findBydescriptionProduit($value);
+                            break;
+    
+                        case 'titre':
+                            $produits = $produitRepository->findBytitreProduit($value);
+                            break;
+    
+                    }
+                }
+
+                if ( $produits){
+                    $back = "success";
+                }else{
+                    $back = "failure";
+                }
+            }
+                ////////
+
+        return $this->render('produit/showProduct.html.twig', [
+            'produits' => $produits, 'back'=> $back
+        ]);
+    }
 
 }

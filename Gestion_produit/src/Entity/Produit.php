@@ -51,7 +51,7 @@ class Produit
     private $image;
 
     /**
-     * @var \Utilisateur
+     * @var \App\Entity\Utilisateur|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur")
      * @ORM\JoinColumns({
@@ -61,7 +61,7 @@ class Produit
     private $idUser;
 
     /**
-     * @var \Categorie
+     * @var \App\Entity\Cateegorie|null
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
      * @ORM\JoinColumns({

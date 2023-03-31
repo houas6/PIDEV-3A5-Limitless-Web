@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <h1><div style = "position:relative; left:450px; top:0px;" >Produit</h1>
 
     <table class="table">
         <thead>
             <tr>
                 
-                <th>Id_produit</th>
-                <th>Nom_produit</th>
+                <th>Id produit</th>
+                <th>Nom produit</th>
                 <th>Prix</th>
                 <th>Description</th>
                 <th>idUser</th>
@@ -24,11 +24,11 @@
             <tr>
                 
                 <td>{{ produit.id_Produit }}</td>
-                <td>{{ produit.nomProduit }}</td>
+                <td>{{ produit.nomproduit }}</td>
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.idUser }}</td>
-                <td>{{ produit.image }}</td>
+                <td><img src="{{ asset('uploads/'~produit.image) }}" style=" width:60px; height:50px; " alt=""/></td>
                 <td>{{ produit.idcategorie.nomcategorie }}</td>
 
                 <td>
