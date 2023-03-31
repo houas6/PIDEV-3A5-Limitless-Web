@@ -62,13 +62,13 @@
             <tr>
                 
                 <td>{{ produit.id_Produit }}</td>
-                <td>{{ produit.nom_produit }}</td>
+                <td>{{ produit.nomproduit }}</td>
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.idUser }}</td>
                 <td>
             {% if produit.image %}
-                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nom_produit }}">
+                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}">
             {% else %}
                 No image
             {% endif %}

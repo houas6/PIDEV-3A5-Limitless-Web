@@ -13,7 +13,7 @@
                 <td>{{ produit.id_produit }}</td>
             </tr>
             <tr>
-                <th>Nom_produit</th>
+                <th>Nom produit</th>
                 <td>{{ produit.nomproduit }}</td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
             <tr>
                 <th>Image</th>
                 {% if produit.image %}
-                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nom_produit }}">
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}">
                 {% endif %}
             </tr>
 

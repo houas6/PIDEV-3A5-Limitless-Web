@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Produit
@@ -24,21 +25,32 @@ class Produit
 
     /**
      * @var string
+     *  * @Assert\NotBlank(message=" nom doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un nom au minimum de 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="nom_produit", type="string", length=30, nullable=false)
      */
-    private $nom_produit;
+    private $nomproduit;
 
     /**
      * @var float
-     *
+     ** @Assert\NotBlank(message=" prix doit etre non vide")
+     * @Assert\Positive
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;
 
     /**
      * @var string
+      * @Assert\NotBlank(message=" description doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer ue description au minimum de 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="description", type="string", length=30, nullable=false)
      */
     private $description;
@@ -89,12 +101,12 @@ class Produit
 
     public function getNomProduit(): ?string
     {
-        return $this->nom_produit;
+        return $this->nomproduit;
     }
 
-    public function setNomProduit(string $nom_produit): self
+    public function setNomProduit(string $nomproduit): self
     {
-        $this->nom_produit = $nom_produit;
+        $this->nomproduit = $nomproduit;
 
         return $this;
     }

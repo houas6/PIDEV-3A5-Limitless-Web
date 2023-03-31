@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Categorie
@@ -27,7 +28,12 @@ class Categorie
 
     /**
      * @var string
+     * @var string
+     *@Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un nom au minimum de 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="nomcategorie", type="string", length=30, nullable=false)
      */
     private $nomcategorie;
