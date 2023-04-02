@@ -73,7 +73,7 @@ class Produit
     private $idUser;
 
     /**
-     * @var \App\Entity\Cateegorie|null
+     * @var \App\Entity\Categorie|null
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
      * @ORM\JoinColumns({

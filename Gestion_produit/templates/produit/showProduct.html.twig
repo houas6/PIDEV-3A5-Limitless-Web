@@ -15,9 +15,9 @@
         <div class="form-group">
             <label for="optionsearch">Search by:</label>
             <select class="form-control" id="optionsearch" name="optionsearch">
-                <option value="titre">Title</option>
+                <option value="nomproduit">nom produit</option>
                 <option value="description">Description</option>
-                <option value="quantite">Quantity</option>
+                
             </select>
         </div>
         <div class="form-group">
@@ -33,14 +33,12 @@
         <div class="form-group">
             <label for="optionsRadios">Sort by:</label>
             <div class="radio">
-                <label><input type="radio" name="optionsRadios" value="titre" checked>Title</label>
+                <label><input type="radio" name="optionsRadios" value="nomproduit" checked>Nom produit</label>
             </div>
             <div class="radio">
                 <label><input type="radio" name="optionsRadios" value="description">Description</label>
             </div>
-            <div class="radio">
-                <label><input type="radio" name="optionsRadios" value="quantite">Quantity</label>
-            </div>
+            
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -54,7 +52,10 @@
                 <th>Nom produit</th>
                 <th>Prix</th>
                 <th>Description</th>
+                <th>User</th>
                 <th>Image</th>
+                <th>Categorie</th>
+
             </tr>
         </thead>
         <tbody>
@@ -68,7 +69,7 @@
                 <td>{{ produit.idUser }}</td>
                 <td>
             {% if produit.image %}
-                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}">
+                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}" alt="" style="width: 50px;">
             {% else %}
                 No image
             {% endif %}

@@ -28,7 +28,7 @@ class ProduitController extends AbstractController
     /**
  * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
  */
-public function new(Request $request, EntityManagerInterface $entityManager,ProduitRepository $repository): Response
+public function new(Request $request, EntityManagerInterface $entityManager, ProduitRepository $repository): Response
 {
     $produit = new Produit();
     $form = $this->createForm(ProduitType::class, $produit);
@@ -37,19 +37,18 @@ public function new(Request $request, EntityManagerInterface $entityManager,Prod
     if ($form->isSubmitted() && $form->isValid()) {
         // Get the uploaded file
         $file = $form->get('image')->getData();
-        
+
         if ($file) {
-            // Generate a unique filename
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
-            
+            // Use the actual filename of the uploaded file
+            $filename = $file->getClientOriginalName();
+
             // Move the file to the uploads directory
             $file->move($this->getParameter('uploads'), $filename);
-            
+
             // Save the filename to the database
             $produit->setImage($filename);
         }
 
-        
         $entityManager->persist($produit);
         $entityManager->flush();
 
@@ -61,6 +60,7 @@ public function new(Request $request, EntityManagerInterface $entityManager,Prod
         'form' => $form->createView(),
     ]);
 }
+
 
 
 
@@ -120,17 +120,15 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
                 if ( $request->request->get('optionsRadios')){
                     $SortKey = $request->request->get('optionsRadios');
                     switch ($SortKey){
-                        case 'titre':
-                            $produits = $produitRepository->SortBytitreProduit();
+                        case 'nomproduit':
+                            $produits = $produitRepository->SortBynomProduit();
                             break;
     
                         case 'description':
                             $produits = $produitRepository->SortBydescriptionProduit();
                             break;
 
-                        case 'quantite':
-                            $produits = $produitRepository->SortByquantiteProduit();
-                            break;
+                        
     
     
                     }
@@ -140,16 +138,14 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
                     $type = $request->request->get('optionsearch');
                     $value = $request->request->get('Search');
                     switch ($type){
-                        case 'quantite':
-                            $produits = $produitRepository->findByquantiteproduit($value);
-                            break;
+                        
     
                         case 'description':
                             $produits = $produitRepository->findBydescriptionProduit($value);
                             break;
     
-                        case 'titre':
-                            $produits = $produitRepository->findBytitreProduit($value);
+                        case 'nomproduit':
+                            $produits = $produitRepository->findBynomProduit($value);
                             break;
     
                     }
