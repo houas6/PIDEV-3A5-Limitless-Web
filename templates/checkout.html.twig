@@ -19,49 +19,51 @@
     <!-- Checkout Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" value={{nom}}>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" value={{prenom}}>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
+           <div class="col-lg-8">
+    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+    <div class="bg-light p-30 mb-5">
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="row">
+            <div class="col-md-6 form-group">
+                {{ form_label(form.nom, 'First Name') }}
+                {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder': nom} }) }}
+
+                {{ form_errors(form.nom) }}
+               
+
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.prenom, 'Last Name') }}
+                {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder': prenom} }) }}
+                {{ form_errors(form.prenom) }}
+            </div>
+            <div class="col-md-6 form-group">
+                <label>E-mail</label>
                             <input class="form-control" type="text" value={{mail}}>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
+            </div>
+            <div class="col-md-6 form-group">
+                 <label>Mobile No</label>
                             <input class="form-control" type="text" value={{numero}}>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" value={{adresse}}>
-                        </div>
-                        
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.adresse, 'Address Line 1') }}
+                {{ form_widget(form.adresse, { 'attr': {'class': 'form-control', 'placeholder': adresse} }) }}
+                {{ form_errors(form.adresse) }}
+            </div>
+            <div class="col-md-6 form-group">
+                <label>Country</label>
                             <select class="custom-select">
                                 <option selected>Tunisia</option>
                                 <option>Algeria</option>
                                 <option>Marocco</option>
                                 <option>France</option>
                             </select>
-                        </div>
-                        
-                        
-                    
-                        
-                        
-                    </div>
-                </div>
-                
             </div>
+        </div>
+       
+    </div>
+</div>
+
             <div class="col-lg-4">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
                 <div class="bg-light p-30 mb-5">
@@ -89,7 +91,9 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>${{totalPrice + 10}}</h5>
+                             <h5>${{ totalPrice + 10 }}</h5>
+
+
                         </div>
                     </div>
                 </div>
@@ -114,13 +118,14 @@
                                 <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
                             </div>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Checkout End -->
-
+ {{ form_end(form) }}
 
 {% endblock %}

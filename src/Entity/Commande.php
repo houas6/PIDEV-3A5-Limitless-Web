@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Assert\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Commande
@@ -22,33 +25,48 @@ class Commande
      */
     private $idCommande;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=50, nullable=false)
-     */
-    private $nom;
+   /**
+ * @var string
+ *
+ * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+ * @Assert\NotBlank(message="Le nom ne peut pas être vide.")
+ * @Assert\Length(max=50, maxMessage="Le nom ne peut pas contenir plus de {{ limit }} caractères.")
+ * @Assert\Regex(
+ *     pattern="/^[a-zA-Z]+$/",
+ *     message="Le nom ne doit pas contenir de chiffres ou de caractères spéciaux."
+ * )
+ */
+private $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
-     */
-    private $prenom;
-
-    /**
+/**
+ * @var string
+ *
+ * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
+ * @Assert\NotBlank(message="Le prénom ne peut pas être vide.")
+ * @Assert\Length(max=50, maxMessage="Le prénom ne peut pas contenir plus de {{ limit }} caractères.")
+ * @Assert\Regex(
+ *     pattern="/^[a-zA-Z]+$/",
+ *     message="Le prénom ne doit pas contenir de chiffres ou de caractères spéciaux."
+ * )
+ */
+private $prenom;
+   /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="L'adresse ne peut pas être vide.")
+     * @Assert\Length(max=50, maxMessage="L'adresse ne peut pas contenir plus de {{ limit }} caractères.")
      */
     private $adresse;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $total;
+ * @var float
+ *
+ * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
+ * @Assert\NotNull(message="Le total ne peut pas être nul.")
+ */
+private $total;
+
 
     /**
      * @var string|null

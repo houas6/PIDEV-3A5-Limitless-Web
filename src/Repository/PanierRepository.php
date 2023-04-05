@@ -43,39 +43,6 @@ class PanierRepository extends ServiceEntityRepository
 
 
 
-    public function add($idUser, $idProduit, UtilisateurRepository $Pepuser , ProduitRepository $Pepproduit)
-    {
-       $user = $Repuser->find($userId);
-       $produit = $Repproduit->find($idProduit);
-
-       $panier = new Basket();
-       $panier->setIdClient($user);
-       $panier->setIdArticle($produit);
-
-       $this->entityManager->persist($panier);
-       $this->entityManager->flush();
-     }
-
-   public function getCartItems($idUser)
-   {
-       $panier = $this->entityManager->getRepository(Panier::class)->findBy([
-           'iduser' => $idUser
-       ]);
-
-       return $panier;
-   }
-   
-   public function removeFromCart($idPanier, PanierRepository $Reppanier)
-{
-   $panier = $Reppanier->find($idPanier);
-
-   if (!$panier) {
-       throw new \Exception('Basket item not found');
-   }
-
-   $this->entityManager->remove($panier);
-   $this->entityManager->flush();
-}
 
 //    /**
 //     * @return Panier[] Returns an array of Panier objects
