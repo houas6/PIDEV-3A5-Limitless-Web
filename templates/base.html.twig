@@ -1,16 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
 
-<head>
-    <meta charset="utf-8">
-    <title>AutoDoc - TOP 1 en Tunisie</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+<link rel="canonical" href="login.html"><link rel="shortcut icon" href="{{asset('../../cdn.shopify.com/s/files/1/0402/4431/4268/files/fav_32x32f995.png?v=1613730012" type="image/png"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1')}}" />
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+		<!--[if IE]>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<![endif]-->
+		
+		<!-- CSS -->
+		
+<style type="text/css">
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
+}
 
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 300;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n3.e9c2ec7697570c33b13645dbd15f3f729c5e921b.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=3550705e19830529f18a25108a044640d73bbf154eec8d1d954764e897dd7a64") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n3.f481a31eaff8b48749cc413f5c6990b1db3c9103.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=2815f12b254ad6aff4fa758228431f4ff542a99201c5a232f0b68b8c5d644bdc") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n5.e72d00d31ae5399d260a80ec70322c62c1819762.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=73f33816ad1840ed02696e30524dc5c04ab9e9497417befc75928c6779e17b64") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n5.18a018b6c83e89030c5d70a6d4c02c969f228500.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=c7d9c641daef8a148f2657fb9972491d0eb24a03e4d95ee0d15f2f37683404ec") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.c496e9cf2031deec4c4bca338faa81971c8631d4.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=622e2111f1480e59f1c7173dd8716dcc09cff70ea38a0553a2426facbe33444e") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.78b0223375c94b39ce1af7e09a0225f2bb3d05f7.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=a701e38de84560d414a31b72e6214b193a0fd4baecd88a96379815f10ea52550") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n6.7a3c341961dc23aaabcc116124b80f2a7abec1a2.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=be95cde9109bfb2e306097c5b1817b0ab59b9e41cb10d0491bd1850288a5efde") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n6.2c97c1a692c63ad09ab0635cb73b1939c5f417c0.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=7402201df31ed42494d6830f22cd2494a32d124dc25e5f83a4359b82b809face") format("woff");
+}
+
+	@font-face {
+  font-family: Montserrat;
+  font-weight: 800;
+  font-style: normal;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n8.d0ee6fdb3a3fec57b7ba86e76adad5b86d8b298f.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=bced379f7cd161ff0d6aa917257afd5b4216286caeb21494b47fcbd4a8838832") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n8.57046b0201ba1025a279f9546bf469833729dc63.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=2f8a779fa729841a31de8eda30f0d30e82ca6bba1d7ba328527555fa3e940aae") format("woff");
+}
+
+	
+	:root {
+		/*  TYPOGRAPHY  */
+		--base-font: Montserrat, sans-serif;
+		--base-font-size: 16px;
+		--heading-font: Montserrat, sans-serif;
+		--heading-font-size: 30px;
+		--heading-light-font-weight: 300;
+		--heading-regular-font-weight: 400;
+		--heading-medium-font-weight: 500;
+		--heading-bold-font-weight: 700;
+		--heading-semi-bold-font-weight: 600;
+		--heading-extra-bold-font-weight: 800;
+		/*  COLORS  */
+		--color-1: #141414;
+		--color-2: #f43d0c;
+		--color-3: #ffffff;
+		--color-4: #000000;
+		--bg-color: #ffffff;
+		--base-font-color: #888888;
+		--heading-font-color: #141414;
+		--border-color: #e4e4e4;
+		--links-color: #141414;
+		--links-color-hover: #f43d0c;
+		--button-color: #f43d0c;
+		--button-text-color: #ffffff;
+		--button-border-color: #f43d0c;
+		--button-hover-color: #141414;
+		--button-hover-text-color: #ffffff;
+		--button-hover-border-color: #141414;
+		--alt-button-color: #141414;
+		--alt-button-text-color: #ffffff;
+		--alt-button-border-color: #141414;
+		--alt-button-hover-color: #f43d0c;
+		--alt-button-hover-text-color: #ffffff;
+		--alt-button-hover-border-color: #f43d0c;
+		--product-name-color: #888888;
+		--product-name-color-hover: #f43d0c;
+		--product-price-color: #141414;
+		--product-price-sale-color: #777777;
+	}
+</style>
+		<link href="{{asset('../../cdn.shopify.com/s/files/1/0402/4431/4268/t/2/assets/style.scss3747.css?v=82075864039122045691656105590')}}" rel="stylesheet" type="text/css" media="all" />
+		<link href="{{asset('../../cdn.shopify.com/s/files/1/0402/4431/4268/t/2/assets/responsive.scss752c.css?v=154932112072804460831591262450')}}" rel="stylesheet" type="text/css" media="all" />
+		
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
@@ -19,107 +131,82 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{asset('lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-
-   <link rel="canonical" href="login.html"><link rel="shortcut icon" href="../../cdn.shopify.com/s/files/1/0402/4431/4268/files/img_25_32x328106.png?v=1631785173" type="image/png"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-		<!--[if IE]>
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<![endif]-->
-		
-		<!-- CSS -->
-		
-
-
-
-
-
-
-
-
-<style type="text/css">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <style type="text/css">
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 400;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n4.c86cddcf8b15d564761aaa71b6201ea326f3648b.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=8575272ca2dae0527d9e7d4b98892231daf2c4832a05ebef29cccdd763c50317") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n4.e0ee1e2c008a0f429542630edf70be01045ac5e9.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=c94697c202e2dd6cb26e74ee19c26eb642abcc1a7721a3ad7a7fe026398d0b5f") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 400;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n4.c86cddcf8b15d564761aaa71b6201ea326f3648b.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=8575272ca2dae0527d9e7d4b98892231daf2c4832a05ebef29cccdd763c50317") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n4.e0ee1e2c008a0f429542630edf70be01045ac5e9.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=c94697c202e2dd6cb26e74ee19c26eb642abcc1a7721a3ad7a7fe026398d0b5f") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 300;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n3.f64559081575f0f98ba4a0d22821eab5d9bd8768.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=a7e87aba4f0a774da300183275dd04cb84b42369a5719b3a0907bf04350d1500") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n3.ce2206e9946a34c16103d844d8d02a64db8351b8.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=497281084f6ddf9701ffdfa3c69d3bc85faf6eaa64c0f545a02bfe245c60950e") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n3.e9c2ec7697570c33b13645dbd15f3f729c5e921b.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=3550705e19830529f18a25108a044640d73bbf154eec8d1d954764e897dd7a64") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n3.f481a31eaff8b48749cc413f5c6990b1db3c9103.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=2815f12b254ad6aff4fa758228431f4ff542a99201c5a232f0b68b8c5d644bdc") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 400;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n4.c86cddcf8b15d564761aaa71b6201ea326f3648b.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=8575272ca2dae0527d9e7d4b98892231daf2c4832a05ebef29cccdd763c50317") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n4.e0ee1e2c008a0f429542630edf70be01045ac5e9.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=c94697c202e2dd6cb26e74ee19c26eb642abcc1a7721a3ad7a7fe026398d0b5f") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0bc99274252e50a72933e2332da61224f4b2b0c767df74a6aa14c2cfba2d63a7") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e13323b2cce4bde698e3a3948b7446ed82ef4f89071dd48a79baee7dc3a572e9") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 500;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n5.10bc1bd2bdb4c0ac35363745e79901b69a0be29a.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=74a1f3e9bafe9da0bcc3efeadceb02af4e8eb3494c395208b51beb24bb720bd5") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n5.f7f0195bc06ce869daac4bf73d242fb9b37734db.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=8649149958dfb44ae6d96302c761504c0983ab4c2b5d6faffd9a0fd063a81ab2") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n5.e72d00d31ae5399d260a80ec70322c62c1819762.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=73f33816ad1840ed02696e30524dc5c04ab9e9497417befc75928c6779e17b64") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n5.18a018b6c83e89030c5d70a6d4c02c969f228500.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=c7d9c641daef8a148f2657fb9972491d0eb24a03e4d95ee0d15f2f37683404ec") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 700;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n7.f0037142450bd729bdf6ba826f5fdcd80f2787ba.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=15381b8aedd99b1a171a0bfdae60267bb1dec50b96e790da03690e644eee5695") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n7.50161a3d4f05d049b7407d86c5a8834e4d6e29bf.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=3f5c8a148d278fd7af103810d02436fd1f87181757f70bb12b541a5555682bd0") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.c496e9cf2031deec4c4bca338faa81971c8631d4.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=622e2111f1480e59f1c7173dd8716dcc09cff70ea38a0553a2426facbe33444e") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.78b0223375c94b39ce1af7e09a0225f2bb3d05f7.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=a701e38de84560d414a31b72e6214b193a0fd4baecd88a96379815f10ea52550") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 600;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n6.8f129fde40f203553b1c63523c8c34e59550404e.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=0185d6896a86efa5d6014f81f8d8de83214ad1b4964893005097b9480f8eabcc") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n6.822b168fbb902b52be8d60ec7a9fd5122a4894fe.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=ae74bf5d45a39fcd0ae79d624ea8a19101b9d8f3b583a0dc115cc92bb8efde25") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n6.7a3c341961dc23aaabcc116124b80f2a7abec1a2.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=be95cde9109bfb2e306097c5b1817b0ab59b9e41cb10d0491bd1850288a5efde") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n6.2c97c1a692c63ad09ab0635cb73b1939c5f417c0.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=7402201df31ed42494d6830f22cd2494a32d124dc25e5f83a4359b82b809face") format("woff");
 }
 
 	@font-face {
-  font-family: Lato;
+  font-family: Montserrat;
   font-weight: 800;
   font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n8.4b93b57a12f9f32bb45cb5342521b1e2bdfa43ed.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=e545416ea78af5018f3a5ce52761e95d68af477a74cd23718c7ca474d7bacc94") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n8.dd6b6a30312dc6a1021ab61103cba1114735570a.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=dd4ec88e371ed4146e32981cbc4b1c144103163d0f90f9bfaaf041484604839a") format("woff");
-}
-
-	@font-face {
-  font-family: Lato;
-  font-weight: 900;
-  font-style: normal;
-  src: url("https://fonts.shopifycdn.com/lato/lato_n9.233741140e0a0b9c15e757ca7bdbcf5c9de93622.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=add4281647a93b741a3824d08f5385c871936577dfbc48354a367df4cdaa78bc") format("woff2"),
-       url("https://fonts.shopifycdn.com/lato/lato_n9.7df1fb8a939b9e4d16b64dc9612f9f29abaecaf8.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=457e0171daaeddd526960470ad32968399c2bd334a59235a5f410e3fd73adff2") format("woff");
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n8.d0ee6fdb3a3fec57b7ba86e76adad5b86d8b298f.woff2?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=bced379f7cd161ff0d6aa917257afd5b4216286caeb21494b47fcbd4a8838832") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n8.57046b0201ba1025a279f9546bf469833729dc63.woff?h1=dGhlbWU4NzAtY2FyLWRlYWxlci5hY2NvdW50Lm15c2hvcGlmeS5jb20&amp;hmac=2f8a779fa729841a31de8eda30f0d30e82ca6bba1d7ba328527555fa3e940aae") format("woff");
 }
 
 	
 	:root {
 		/*  TYPOGRAPHY  */
-		--base-font: Lato, sans-serif;
+		--base-font: Montserrat, sans-serif;
 		--base-font-size: 16px;
-		--heading-font: Lato, sans-serif;
+		--heading-font: Montserrat, sans-serif;
 		--heading-font-size: 30px;
 		--heading-light-font-weight: 300;
 		--heading-regular-font-weight: 400;
@@ -127,44 +214,89 @@
 		--heading-bold-font-weight: 700;
 		--heading-semi-bold-font-weight: 600;
 		--heading-extra-bold-font-weight: 800;
-		--heading-extra-bold-super-font-weight: FontDrop;
 		/*  COLORS  */
-		--color-1: #2d4a68;
-		--color-2: #83878f;
+		--color-1: #141414;
+		--color-2: #f43d0c;
 		--color-3: #ffffff;
 		--color-4: #000000;
 		--bg-color: #ffffff;
-		--base-font-color: #83878f;
-		--heading-font-color: #100503;
-		--border-color: #f5f6f8;
-		--links-color: #100503;
-		--links-color-hover: #2d4a68;
-		--button-color: #2d4a68;
+		--base-font-color: #888888;
+		--heading-font-color: #141414;
+		--border-color: #e4e4e4;
+		--links-color: #141414;
+		--links-color-hover: #f43d0c;
+		--button-color: #f43d0c;
 		--button-text-color: #ffffff;
-		--button-border-color: #2d4a68;
-		--button-hover-color: #100503;
+		--button-border-color: #f43d0c;
+		--button-hover-color: #141414;
 		--button-hover-text-color: #ffffff;
-		--button-hover-border-color: #100503;
-		--alt-button-color: #ffffff;
-		--alt-button-text-color: #100503;
-		--alt-button-border-color: #2d4a68;
-		--alt-button-hover-color: #2d4a68;
+		--button-hover-border-color: #141414;
+		--alt-button-color: #141414;
+		--alt-button-text-color: #ffffff;
+		--alt-button-border-color: #141414;
+		--alt-button-hover-color: #f43d0c;
 		--alt-button-hover-text-color: #ffffff;
-		--alt-button-hover-border-color: #2d4a68;
-		--product-name-color: #100503;
-		--product-name-color-hover: #2d4a68;
-		--product-price-color: #2d4a68;
-		--product-price-sale-color: #83878f;
+		--alt-button-hover-border-color: #f43d0c;
+		--product-name-color: #888888;
+		--product-name-color-hover: #f43d0c;
+		--product-price-color: #141414;
+		--product-price-sale-color: #777777;
 	}
 </style>
-		<link href="../../cdn.shopify.com/s/files/1/0402/4431/4268/t/3/assets/style.scssf938.css?v=32860706673807233671631866870" rel="stylesheet" type="text/css" media="all" />
-		<link href="../../cdn.shopify.com/s/files/1/0402/4431/4268/t/3/assets/responsive.scss26f9.css?v=183167622029134216831631785912" rel="stylesheet" type="text/css" media="all" />
 
-</head>
-
-<body>
-    <!-- Topbar Start -->
+        {% endblock %}
+    </head>
+    <body>
+        {% block header %}
+        <!-- Topbar Start -->
     <div class="container-fluid">
+        <div class="row bg-secondary py-1 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center h-100">
+                    <a class="text-body mr-3" href="">About</a>
+                    <a class="text-body mr-3" href="">Contact</a>
+                    <a class="text-body mr-3" href="">Help</a>
+                    <a class="text-body mr-3" href="">FAQs</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Sign in</button>
+                            <button class="dropdown-item" type="button">Sign up</button>
+                        </div>
+                    </div>
+                    <div class="btn-group mx-2">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">EUR</button>
+                            <button class="dropdown-item" type="button">GBP</button>
+                            <button class="dropdown-item" type="button">CAD</button>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">FR</button>
+                            <button class="dropdown-item" type="button">AR</button>
+                            <button class="dropdown-item" type="button">RU</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="" class="text-decoration-none">
@@ -191,7 +323,10 @@
         </div>
     </div>
     <!-- Topbar End -->
+        {% endblock %}
 
+        {% block navbar %}
+        
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
@@ -263,183 +398,15 @@
     </div>
     <!-- Navbar End -->
 
+        {% endblock %}
+        {% block body %}
 
-            <div class="main_content container_big ">
-								<div id="shopify-section-template-login" class="shopify-section"><div class="template_customer template_customer__login">
-	<div class="container">
-		<h1 class="page_heading">Account</h1>
+Test Test - Saibi Dhia 3A5
 
-		
-			
-			<div id="account_section__wrapper">
-				<div class="customer_wrapper">
-					<a href="#" id="account_login__link" class="customer_block customer_block__login">
-						<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M20 16C15.6 16 12 12.4 12 8C12 3.6 15.6 0 20 0C24.4 0 28 3.6 28 8C28 12.4 24.4 16 20 16ZM20 2C16.7 2 14 4.7 14 8C14 11.3 16.7 14 20 14C23.3 14 26 11.3 26 8C26 4.7 23.3 2 20 2Z"/>
-							<path d="M40 40H0V39C0.299252 34.1 2.39401 29.3 5.88529 25.8C9.67581 22.1 14.6633 20 19.9501 20C25.2369 20 30.3242 22.1 34.015 25.9C37.5062 29.4 39.8005 34 40 39V40ZM2.09476 38H37.8055C37.3067 33.9 35.5112 30.2 32.6185 27.3C29.3267 23.9 24.7382 22 19.9501 22C15.1621 22 10.6733 23.9 7.2818 27.3C4.38903 30.2 2.59352 33.9 2.09476 38Z"/>
-						</svg>
-						<h5>Log in</h5>
-					</a>
+        {% endblock %}
 
-					<a href="#" id="account_register__link" class="customer_block customer_block__register">
-						<svg width="44" height="40" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M20 16C15.6 16 12 12.4 12 8C12 3.6 15.6 0 20 0C24.4 0 28 3.6 28 8C28 12.4 24.4 16 20 16ZM20 2C16.7 2 14 4.7 14 8C14 11.3 16.7 14 20 14C23.3 14 26 11.3 26 8C26 4.7 23.3 2 20 2Z"/>
-							<path d="M40 40H0V39C0.299252 34.1 2.39401 29.3 5.88529 25.8C9.67581 22.1 14.6633 20 19.9501 20C25.2369 20 30.3242 22.1 34.015 25.9C37.5062 29.4 39.8005 34 40 39V40ZM2.09476 38H37.8055C37.3067 33.9 35.5112 30.2 32.6185 27.3C29.3267 23.9 24.7382 22 19.9501 22C15.1621 22 10.6733 23.9 7.2818 27.3C4.38903 30.2 2.59352 33.9 2.09476 38Z"/>
-							<path d="M35 23V22H34H32H31V23V27H27H26V28V30V31H27H31V35V36H32H34H35V35V31H39H40V30V28V27H39H35V23Z" stroke="white" stroke-width="2"/>
-						</svg>
-						<h5>Registration </h5>
-					</a>
+        {% block Footer %}
 
-					
-
-
-					<a href="#" id="account_reset__link" class="customer_block customer_block__restore">
-						<svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M42.435 15.5649C35.0151 8.14495 22.9849 8.14495 15.565 15.5649C8.14501 22.9849 8.14501 35.015 15.565 42.435C22.9849 49.8549 35.0151 49.8549 42.435 42.435C44.8821 39.9879 46.5222 37.0393 47.3552 33.9201" stroke="#222222" stroke-width="2"/>
-							<path d="M43.5 11.5L42.5 16.5L37.5 15.5" stroke="#222222" stroke-width="2"/>
-							<rect x="22" y="25" width="14" height="12" stroke="#222222" stroke-width="2"/>
-							<path d="M33 26C33 23.2386 31.2091 21 29 21C26.7909 21 25 23.2386 25 26" stroke="#222222" stroke-width="2"/>
-							<circle cx="29" cy="31" r="2" fill="#222222"/>
-						</svg>
-
-						<h5>Restore Password</h5>
-					</a>
-				</div>
-			</div>
-
-			
-			<div id="account_section__register" class="account_section account_section__register">
-				<div class="customer_item_wrap">
-					<h4>Create an account <a class="link_close account_register__close" href="#" title="Close">
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M13.7156 5L15 6.14286L10.993 10L15 13.8571L13.7156 15L9.95417 11.2857L6.28442 15L5 13.8571L8.9342 10L5 6.14286L6.28442 5L9.95417 8.71429L13.7156 5Z" fill="#222222"/>
-						</svg>
-					</a></h4>
-
-					<div class="form-horizontal">
-						<form method="post" action="https://theme870-car-dealer.myshopify.com/account" id="create_customer" accept-charset="UTF-8" data-login-with-shop-sign-up="true"><input type="hidden" name="form_type" value="create_customer" /><input type="hidden" name="utf8" value="✓" />
-							<input type="hidden" id="password_confirmed" name="customer[password]">
-
-							
-
-							<div class="clearfix form-group">
-								<label for="first_name">First name</label>
-								<div class=>
-									<input type="text" value="" name="customer[first_name]" id="first_name">
-								</div>
-							</div>
-
-							<div class="clearfix form-group">
-								<label for="last_name">Last name</label>
-								<div>
-									<input type="text" value="" name="customer[last_name]" id="last_name">
-								</div>
-							</div>
-
-							<div class="clearfix form-group">
-								<label for="email">Email address</label>
-								<div>
-									<input type="email" value="" name="customer[email]" id="email">
-								</div>
-							</div>
-
-							<div class="clearfix form-group">
-								<label for="password_1">Password</label>
-								<div>
-									<i class="file_eye_el"></i>
-									<input type="password" value="" name="customer[password]" id="password_1">
-								</div>
-							</div>
-
-							<div class="clearfix form-group">
-								<label for="password_2">Confirm password</label>
-								<div>
-									<i class="file_eye_el"></i>
-									<input type="password" value="" id="password_2">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div>
-									<button class="btn btn-primary" type="submit">Register</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div> 
-			</div>
-			
-			
-			<div id="account_section__login"  class="account_section account_section__login">
-				<div class="customer_item_wrap">
-					<form method="post" action="https://theme870-car-dealer.myshopify.com/account/login" id="customer_login" accept-charset="UTF-8" data-login-with-shop-sign-in="true"><input type="hidden" name="form_type" value="customer_login" /><input type="hidden" name="utf8" value="✓" />
-						<h4>Already registered?<a class="link_close account_login__close" href="#" title="Close">
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M13.7156 5L15 6.14286L10.993 10L15 13.8571L13.7156 15L9.95417 11.2857L6.28442 15L5 13.8571L8.9342 10L5 6.14286L6.28442 5L9.95417 8.71429L13.7156 5Z" fill="#222222"/>
-						</svg>
-						</a></h4>
-
-						
-
-						<div class="form-group">
-							<label for="customer_email">Email address</label>
-							<input type="email" value="" name="customer[email]" id="customer_email">
-						</div>
-						
-						
-							<div class="form-group">
-								<label for="customer_password">Password</label>
-								<i class="file_eye_el"></i>
-								<input type="password" value="" name="customer[password]" id="customer_password">
-							</div>
-						
-						  
-						<div class="form-group">
-							<button class="btn" type="submit">Sign in</button>
-						</div>
-					</form>
-				</div>
-			</div>
-			
-			
-			
-
-			
-			<div id="account_section__reset" class="account_section account_section__reset">
-				<div class="customer_item_wrap">
-					<h4>Reset Password 
-						<a class="link_close account_reset__cancel" href="#" title="Close">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M13.7156 5L15 6.14286L10.993 10L15 13.8571L13.7156 15L9.95417 11.2857L6.28442 15L5 13.8571L8.9342 10L5 6.14286L6.28442 5L9.95417 8.71429L13.7156 5Z" fill="#222222"/>
-							</svg>
-						</a>
-					</h4>
-
-					<p class="note">We will send you an email to reset your password</p>
-
-					<form method="post" action="https://theme870-car-dealer.myshopify.com/account/recover" accept-charset="UTF-8"><input type="hidden" name="form_type" value="recover_customer_password" /><input type="hidden" name="utf8" value="✓" />
-						<div class="clearfix form-horizontal">
-							
-								
-							
-
-							<div class="form-group">
-								<label for="email_recover" class="large">Email Address</label>
-								<div>
-									<input type="email" id="email_recover" name="email" value="">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div>
-									<button type="submit" class="btn">Submit</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-            </div>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
@@ -513,23 +480,22 @@
     </div>
     <!-- Footer End -->
 
+         {% endblock %} 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        {% block javascripts %}
+        <!-- JavaScript Libraries -->
+    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('lib/easing/easing.min.js')}}"></script>
+    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <script src="{{asset('mail/jqBootstrapValidation.min.js')}}"></script>
+    <script src="{{asset('mail/contact.js')}}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
-
+    <script src="{{asset('js/main.js')}}"></script>
+   
+        {% endblock %}
+    </body>
 </html>
