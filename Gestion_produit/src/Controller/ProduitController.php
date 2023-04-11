@@ -19,11 +19,15 @@ class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
-    {
-        return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
-        ]);
-    }
+   {
+    $produits = $produitRepository->findAll();
+
+    return $this->render('produit/index.html.twig', [
+        'produits' => $produits,
+    ]);
+}
+
+
 
     /**
  * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
@@ -73,7 +77,7 @@ public function show(Request $request, Produit $produit): Response
 
 
 
-#[Route('/{id_produit}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
+
 public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
 {
     $form = $this->createForm(ProduitType::class, $produit, [
@@ -93,6 +97,8 @@ public function edit(Request $request, Produit $produit, EntityManagerInterface 
         'form' => $form,
     ]);
 }
+
+
 
 #[Route('/{id_produit}', name: 'app_produit_delete', methods: ['POST'])]
 public function delete(Request $request, Produit $produit,EntityManagerInterface $entityManager): Response

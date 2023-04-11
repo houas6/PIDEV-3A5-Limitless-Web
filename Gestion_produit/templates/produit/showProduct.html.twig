@@ -45,41 +45,18 @@
 
     <br>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID produit</th>
-                <th>Nom produit</th>
-                <th>Prix</th>
-                <th>Description</th>
-                <th>User</th>
-                <th>Image</th>
-                <th>Categorie</th>
+    {% for produit in produits %}
+<div style="display:inline-block; text-align:center; width: 30%;">
+    <h4>{{ produit.nomproduit }}</h4>
+    {% if produit.image %}
+        <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}" style="width: 50%;">
+    {% else %}
+        <p>No image</p>
+    {% endif %}
+    <p><strong>Prix:</strong> {{ produit.prix }}</p>
+    <p><strong>Description:</strong> {{ produit.description }}</p>
+    <p><strong>Categorie:</strong> {{ produit.idcategorie.nomcategorie }}</p>
+</div>
+{% endfor %}
 
-            </tr>
-        </thead>
-        <tbody>
-            {% for produit in produits %}
-            <tr>
-                
-                <td>{{ produit.id_Produit }}</td>
-                <td>{{ produit.nomproduit }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.idUser }}</td>
-                <td>
-            {% if produit.image %}
-                <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}" alt="" style="width: 50px;">
-            {% else %}
-                No image
-            {% endif %}
-        </td>
-                <td>{{ produit.idcategorie.nomcategorie }}</td>
-                    
-                </td>
-            </tr>
-        {% endfor %}
-
-        </tbody>
-    </table>
 {% endblock %}

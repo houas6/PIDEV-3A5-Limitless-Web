@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'Backoffice.html.twig' %}
 
 {% block title %}Produit{% endblock %}
 
@@ -47,5 +47,5 @@
    <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}">edit</a>
 
 
-{{ include('produit/_delete_form.html.twig') }}
+{{ include('produit/_delete_form.html.twig', {'id_produit': produit.id_produit}) }}
 {% endblock %}
