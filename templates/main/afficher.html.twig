@@ -1,0 +1,36 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>     <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Mail</th>
+                        <th>Adresse</th>
+                        <th>Numero</th>
+                        <th>Suppression</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in u %}
+                        <tr>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.mail }}</td>
+                            <td>{{ user.adresse }}</td>
+                            <td>{{ user.numero }}</td>
+                            <td>
+                                <a class="btn btn-danger" href="{{ path('app_supprimer',{'id':user.getIdUser()}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+{% endblock %}

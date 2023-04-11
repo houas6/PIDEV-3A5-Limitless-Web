@@ -3,76 +3,84 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="mail", columns={"mail"}), @ORM\UniqueConstraint(name="cin", columns={"cin"})})
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
 class Utilisateur
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="id_user", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $idUser;
-
-    /**
-     * @var string
+   /**
+     * @Assert\NotBlank(message="Le mot de passe est requis")
+     * @Assert\Length(max=50, maxMessage="Le mot de passe doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="password", type="string", length=50, nullable=false)
      */
     private $password;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="L'adresse mail est requise")
+     * @Assert\Email(message="L'adresse mail n'est pas valide")
+     * @Assert\Length(max=50, maxMessage="L'adresse mail doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="mail", type="string", length=50, nullable=false)
      */
     private $mail;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le nom est requis")
+     * @Assert\Length(max=50, maxMessage="Le nom doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
      */
     private $nom;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le prénom est requis")
+     * @Assert\Length(max=50, maxMessage="Le prénom doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
      */
     private $prenom;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="L'adresse est requise")
+     * @Assert\Length(max=100, maxMessage="L'adresse doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="adresse", type="string", length=100, nullable=false)
      */
     private $adresse;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le rôle est requis")
+     * @Assert\Length(max=30, maxMessage="Le rôle doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="role", type="string", length=30, nullable=false)
      */
     private $role;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le numéro de CIN est requis")
+     * @Assert\Regex(pattern="/^[0-9]{8}$/", message="Le numéro de CIN doit être composé de 8 chiffres")
      *
      * @ORM\Column(name="cin", type="string", length=8, nullable=false)
      */
     private $cin;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le numéro de téléphone est requis")
+     * @Assert\Regex(pattern="/^[0-9]{8}$/", message="Le numéro de téléphone doit être composé de 8 chiffres")
      *
      * @ORM\Column(name="numero", type="string", length=50, nullable=false)
      */
@@ -179,5 +187,5 @@ class Utilisateur
         return $this;
     }
 
-
 }
+
