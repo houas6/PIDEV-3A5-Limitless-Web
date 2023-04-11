@@ -27,8 +27,8 @@ class Produit
      * @var string
      *  * @Assert\NotBlank(message=" nom doit etre non vide")
      * @Assert\Length(
-     *      min = 5,
-     *      minMessage=" Entrer un nom au minimum de 5 caracteres"
+     *      min = 4,
+     *      minMessage=" Entrer un nom au minimum de 4 caracteres"
      *
      *     )
      * @ORM\Column(name="nom_produit", type="string", length=30, nullable=false)

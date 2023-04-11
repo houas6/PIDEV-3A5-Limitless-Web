@@ -28,7 +28,7 @@ class Categorie
 
     /**
      * @var string
-     * @var string
+     *
      *@Assert\Length(
      *      min = 5,
      *      minMessage=" Entrer un nom au minimum de 5 caracteres"
