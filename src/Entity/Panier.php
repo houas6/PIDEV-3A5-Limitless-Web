@@ -36,7 +36,7 @@ class Panier
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
-     */
+     */     
     private $idUser;
 
     /**

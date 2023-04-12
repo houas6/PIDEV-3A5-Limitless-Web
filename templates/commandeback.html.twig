@@ -1,0 +1,49 @@
+{% extends 'back.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Commande</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Adresse</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            {% for c in commande %}
+                            <tr>
+                                <td>{{ c.nom }}</td>
+                                <td>{{ c.prenom }}</td>
+                                <td>{{ c.adresse }}</td>
+                                <td>${{ c.total }}</td>
+                                <td>
+                                
+                                    <form method="POST" action="{{ path('app_changer_status', {'id': c.getIdCommande(), 'status': c.status}) }}">
+                                   <select name="status" class="form-select">
+                                     <option value="Paye" {% if c.status == "Paye" %}selected{% endif %}>Payé</option>
+                                          <option value="Non paye" {% if c.status == "Non paye" %}selected{% endif %}>Non payé</option>
+                                              </select>
+                                          <button type="submit" class="btn btn-sm btn-primary">Enregistrer</button>
+                                                </form>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="{{ path('app_supprimer',{'id':c.getIdCommande()}) }}">Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

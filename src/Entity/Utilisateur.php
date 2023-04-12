@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Assert\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Utilisateur
@@ -29,12 +31,18 @@ class Utilisateur
      */
     private $password;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=50, nullable=false)
-     */
-    private $mail;
+  /**
+ * @Assert\NotBlank(message="L'adresse mail est requise")
+ * @Assert\Regex(
+ *     pattern="/^[^@\s]+@[^@\s]+\.[^@\s]+$/",
+ *     message="L'adresse mail n'est pas valide"
+ * )
+ * @Assert\Length(max=50, maxMessage="L'adresse mail doit avoir au maximum {{ limit }} caractères")
+ *
+ * @ORM\Column(name="mail", type="string", length=50, nullable=false)
+ */
+private $mail;
+
 
     /**
      * @var string
@@ -71,8 +79,9 @@ class Utilisateur
      */
     private $cin;
 
-    /**
-     * @var string
+  /**
+     * @Assert\NotBlank(message="Le numéro de téléphone est requis")
+     * @Assert\Regex(pattern="/^[0-9]{8}$/", message="Le numéro de téléphone doit être composé de 8 chiffres")
      *
      * @ORM\Column(name="numero", type="string", length=50, nullable=false)
      */
