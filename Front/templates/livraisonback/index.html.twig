@@ -1,0 +1,43 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Livraison index{% endblock %}
+
+{% block body %}
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdLivraison</th>
+                <th>Livreur</th>
+                <th>DateLivraison</th>
+                <th>AdresseLivraison</th>
+                <th>CodePostalLivraison</th>
+                <th>StatusLivraison</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for livraison in livraisons %}
+            <tr>
+                <td>{{ livraison.idLivraison }}</td>
+                <td>{{ livraison.idLivreur.nom }}</td>
+                <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
+                <td>{{ livraison.adresseLivraison }}</td>
+                <td>{{ livraison.codePostalLivraison }}</td>
+                <td>{{ livraison.statusLivraison }}</td>
+                <td>
+                    <a href="{{ path('app_livraison_back_show', {'idLivraison': livraison.idLivraison}) }}">show</a>
+                    <a href="{{ path('app_livraison_back_edit', {'idLivraison': livraison.idLivraison}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_livraison_back_new') }}">Create new</a>
+{% endblock %}

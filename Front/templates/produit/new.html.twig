@@ -1,0 +1,14 @@
+{# templates/produit/new.html.twig #}
+
+{% extends 'Base.html.twig' %}
+
+{% block body %}
+    <h1>Create new produit</h1>
+    
+    {{ form_start(form, {'attr':{'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+        <button type="submit">Create</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_produit_index') }}">Back to list</a>
+{% endblock %}

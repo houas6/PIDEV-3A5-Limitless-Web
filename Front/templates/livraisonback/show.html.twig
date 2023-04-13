@@ -1,0 +1,42 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+    <h1>Livraison</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdLivraison</th>
+                <td>{{ livraison.idLivraison }}</td>
+            </tr>
+             <tr>
+                <th>livreur</th>
+                <td>{{  livraison.idLivreur.nom }}</td>
+            </tr>
+            <tr>
+                <th>DateLivraison</th>
+                <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AdresseLivraison</th>
+                <td>{{ livraison.adresseLivraison }}</td>
+            </tr>
+            <tr>
+                <th>CodePostalLivraison</th>
+                <td>{{ livraison.codePostalLivraison }}</td>
+            </tr>
+            <tr>
+                <th>StatusLivraison</th>
+                <td>{{ livraison.statusLivraison }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_livraison_back_index') }}">back to list</a>
+
+    <a href="{{ path('app_livraison_back_edit', {'idLivraison': livraison.idLivraison}) }}">edit</a>
+
+    {{ include('livraisonback/_delete_form.html.twig') }}
+{% endblock %}
