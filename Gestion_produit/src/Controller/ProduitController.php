@@ -134,6 +134,10 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
                             $produits = $produitRepository->SortBydescriptionProduit();
                             break;
 
+                        case 'categorie':
+                            $produits = $produitRepository->SortBycategorieProduit();
+                            break;
+
                         
     
     
@@ -153,6 +157,12 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
                         case 'nomproduit':
                             $produits = $produitRepository->findBynomProduit($value);
                             break;
+                        
+                        case 'categorie':
+                            $produits = $produitRepository->findBycategorieProduit($value);
+                            break;
+
+                    
     
                     }
                 }

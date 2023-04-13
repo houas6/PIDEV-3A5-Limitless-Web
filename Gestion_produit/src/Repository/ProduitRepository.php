@@ -80,7 +80,15 @@ public function SortBydescriptionProduit()
         ->getResult()
         ;
 }
-
+public function SortBycategorieProduit()
+{
+    
+    return $this->createQueryBuilder('p')
+        ->join('p.idcategorie', 'c')
+        ->orderBy('c.nomcategorie', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 public function findBydescriptionProduit( $description)
 {
     return $this-> createQueryBuilder('e')
@@ -97,4 +105,14 @@ public function findBynomProduit( $nomproduit)
         ->getQuery()
         ->execute();
 }
+public function findBycategorieProduit( $categorie)
+{
+    return $this->createQueryBuilder('p')
+        ->join('p.idcategorie', 'c')
+        ->andWhere('c.nomcategorie LIKE :categorie')
+        ->setParameter('categorie', '%' . $categorie . '%')
+        ->getQuery()
+        ->getResult();
+}
+
 }
