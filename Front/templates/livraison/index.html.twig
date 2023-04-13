@@ -26,7 +26,7 @@
                 <td>{{ livraison.statusLivraison }}</td>
                 <td>
                     <a href="{{ path('app_livraison_show', {'idLivraison': livraison.idLivraison}) }}">show</a>
-                    <a href="{{ path('app_livraison_edit', {'idLivraison': livraison.idLivraison}) }}">edit</a>
+                    
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_livraison_new') }}">Create new</a>
+   
 {% endblock %}
