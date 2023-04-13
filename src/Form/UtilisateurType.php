@@ -29,6 +29,7 @@ class UtilisateurType extends AbstractType
                 'type'=>PasswordType::class,
                 'first_options'=>['label'=>'Mot de passe'],
                 'second_options'=>['label'=>'Confirmez le mot de passe']
+                
             ])
             ->add('Creer',SubmitType::class);
     }

@@ -83,4 +83,25 @@ public function indexAjouter(Request $request): Response
 
         return $this->redirectToRoute('app_afficher');
     }
+
+   /**
+ * @Route("/modifierUser/{id}", name="app_modifier")
+ */
+public function indexModifier(Request $request, $id): Response
+{
+    $user = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->find($id);
+
+    $form = $this->createForm(UtilisateurType::class, $user);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        return $this->redirectToRoute('app_afficher');
+    }
+
+    return $this->render('main/modifierUser.html.twig', ['f' => $form->createView()]);
+}
+
 }

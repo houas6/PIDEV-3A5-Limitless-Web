@@ -12,6 +12,8 @@
                         <th>Mail</th>
                         <th>Adresse</th>
                         <th>Numero</th>
+                        <th>CIN</th>
+                        <th>Modification</th>
                         <th>Suppression</th>
                     </tr>
                     </thead>
@@ -23,6 +25,10 @@
                             <td>{{ user.mail }}</td>
                             <td>{{ user.adresse }}</td>
                             <td>{{ user.numero }}</td>
+                            <td>{{ user.cin }}</td>
+                            <td>
+                                <a class="btn btn-success" href="{{ path('app_modifier',{'id':user.getIdUser()}) }}">Modifier</a>
+                            </td>
                             <td>
                                 <a class="btn btn-danger" href="{{ path('app_supprimer',{'id':user.getIdUser()}) }}">Supprimer</a>
                             </td>
