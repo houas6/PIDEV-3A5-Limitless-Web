@@ -28,7 +28,7 @@ class Categorie
 
     /**
      * @var string
-     *
+     *  * @Assert\NotBlank(message=" nom categorie doit etre non vide")
      *@Assert\Length(
      *      min = 5,
      *      minMessage=" Entrer un nom au minimum de 5 caracteres"

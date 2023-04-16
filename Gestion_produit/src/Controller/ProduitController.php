@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use App\Entity\PdfGeneratorService;
 
 
 #[Route('/produit')]
@@ -55,6 +57,8 @@ public function new(Request $request, EntityManagerInterface $entityManager, Pro
 
         $entityManager->persist($produit);
         $entityManager->flush();
+        $repository->sms();
+        $this->addFlash('danger', 'reponse envoyée avec succées');
 
         return $this->redirectToRoute('produit_index');
     }
@@ -111,6 +115,53 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
 
     return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
 }
+#[Route('/statistique', name: 'stats')]
+            public function stat()
+            {
+        
+                $repository = $this->getDoctrine()->getRepository(Produit::class);
+                $produit= $repository->findAll();
+        
+                $em = $this->getDoctrine()->getManager();
+        
+        
+                $pr1 = 0;
+                $pr2 = 0;
+        
+        
+                foreach ($produit as $produit) {
+                    if ($produit->getPrix() >= 1000)  :
+        
+                        $pr1 += 1;
+                    else:
+        
+                        $pr2 += 1;
+        
+                    endif;
+        
+                }
+        
+                $pieChart = new PieChart();
+                $pieChart->getData()->setArrayToDataTable(
+                    [['Prix', 'Nom'],
+                        ['produit inferieur 1000dt ', $pr2],
+                        ['produit superieur ou egale 1000dt', $pr1],
+                    ]
+                );
+                $pieChart->getOptions()->setTitle('statistique a partir des prix');
+                $pieChart->getOptions()->setHeight(1000);
+                $pieChart->getOptions()->setWidth(1400);
+                $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+                $pieChart->getOptions()->getTitleTextStyle()->setColor('green');
+                $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+                $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+                $pieChart->getOptions()->getTitleTextStyle()->setFontSize(30);
+        
+               
+        
+                return $this->render('produit/stat.html.twig', array('piechart' => $pieChart));
+            }
+        
 
 #[Route('/showProduct', name: 'app_produit_index1', methods: ['GET','POST'])]
     public function index1(EntityManagerInterface $entityManager,Request $request,ProduitRepository $produitRepository): Response
@@ -179,5 +230,24 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
             'produits' => $produits, 'back'=> $back
         ]);
     }
+    #[Route('/pdf/produit', name: 'generator_service')]
+    public function pdfService(): Response
+    { 
+        $produit= $this->getDoctrine()
+        ->getRepository(Produit::class)
+        ->findAll();
 
+   
+
+        $html =$this->renderView('pdf/index.html.twig', ['produit' => $produit]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+       
+    }
+    
 }

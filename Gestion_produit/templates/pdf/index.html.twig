@@ -1,0 +1,34 @@
+
+
+                <table  border="1">
+                    <thead >
+                        <tr>
+                           <th>Id produit</th>
+                            <th>Nom produit</th>
+                            <th>Prix</th>
+                            <th>Description</th>
+                            <th>idUser</th>
+                            <th>Image</th>
+                            <th>Categorie</th>
+                
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prod in produit %}
+            <tr>
+                
+                <td>{{ prod.id_Produit }}</td>
+                <td>{{ prod.nomproduit }}</td>
+                <td>{{ prod.prix }}</td>
+                <td>{{ prod.description }}</td>
+                <td>{{ prod.idUser }}</td>
+                <td><img src="{{ asset('uploads/'~prod.image) }}" style=" width:60px; height:50px; " alt=""/></td>
+                <td>{{ prod.idcategorie.nomcategorie }}</td>              
+                                 
+                                  
+                               
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
