@@ -15,64 +15,67 @@ use Doctrine\Persistence\ManagerRegistry;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Label\Font\NotoSans;
+use Doctrine\ORM\EntityManagerInterface;
  
 
 class QrCodeController extends AbstractController
 {
-
-
-    #[Route('/qr-codes','/{id_produit}', name: 'app_qr_codes', methods: ['GET'])]
-    public function index(): Response
+    #[Route('/qr-codes/{id_produit}', name: 'app_qr_codes', methods: ['GET'])]
+    public function index(string $id_produit, EntityManagerInterface $entityManager): Response
     {
-        $writer = new PngWriter();
-        $produit = new Produit();
-        $id_produit=$produit->getId_produit(); 
+        // Retrieve the product from the database
+        $produit = $entityManager->getRepository(Produit::class)->find($id_produit);
 
-      //  $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $userData = $_GET['id_produit'];
-
-
-        $qrCode = QrCode::create($userData)
-        
-        ->setEncoding(new Encoding('UTF-8'))
+        // Generate the QR code using the product name as the data
+        $qrCode = QrCode::create($produit->getNomproduit())
+            ->setEncoding(new Encoding('UTF-8'))
             ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
             ->setSize(120)
             ->setMargin(0)
             ->setForegroundColor(new Color(0, 0, 0))
             ->setBackgroundColor(new Color(255, 255, 255));
-        $logo = Logo::create('img.png')
-            ->setResizeToWidth(60);
+
+        // Generate the different types of QR codes
+        $writer = new PngWriter();
+        
         $label = Label::create('')->setFont(new NotoSans(8));
- 
+
         $qrCodes = [];
-        $qrCodes['img'] = $writer->write($qrCode, $logo)->getDataUri();
+        $qrCodes['img'] = $writer->write($qrCode)->getDataUri();
         $qrCodes['simple'] = $writer->write(
-                                $qrCode,
-                                null,
-                                $label->setText('Simple')
-                            )->getDataUri();
- 
+        $qrCode,
+        null,
+        $label->setText('Simple')
+        )->getDataUri();
+
+
         $qrCode->setForegroundColor(new Color(255, 0, 0));
         $qrCodes['changeColor'] = $writer->write(
             $qrCode,
             null,
             $label->setText('Color Change')
         )->getDataUri();
- 
+
         $qrCode->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 0, 0));
         $qrCodes['changeBgColor'] = $writer->write(
             $qrCode,
             null,
             $label->setText('Background Color Change')
         )->getDataUri();
- 
+
         $qrCode->setSize(200)->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 255, 255));
         $qrCodes['withImage'] = $writer->write(
             $qrCode,
-            $logo,
+            null,
             $label->setText('With Image')->setFont(new NotoSans(20))
         )->getDataUri();
- 
-        return $this->render('qr_code/index.html.twig', $qrCodes);
+        
+        // Pass the generated QR codes and product data to the template
+        $templateData = [
+            'qrCodes' => $qrCodes,
+            'produit' => $produit
+        ];
+
+        return $this->render('qr_code/index.html.twig', $templateData);
     }
 }
