@@ -14,21 +14,30 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use App\Entity\PdfGeneratorService;
+use Knp\Component\Pager\PaginatorInterface; 
 
 
 #[Route('/produit')]
 class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(Request $request , EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
    {
-    $produits = $produitRepository->findAll();
-
+    $produits = $entityManager
+            ->getRepository(Produit::class)
+            ->findAll();
+            
+          
+         
+    $produits = $paginator->paginate(
+    $produits,
+    $request->query->getInt('page', 1),2
+);
     return $this->render('produit/index.html.twig', [
-        'produits' => $produits,
-    ]);
-}
+    'produits' => $produits,
+]);
 
+}
 
 
     /**
