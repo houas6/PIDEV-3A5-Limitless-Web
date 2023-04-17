@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 
 class CheckoutController extends AbstractController
 {
@@ -53,6 +55,8 @@ if ($form->isSubmitted() && $form->isValid()) {
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($commande);
     $entityManager->flush();
+  #  return $this->redirectToRoute("");
+
 }
 
 
@@ -73,4 +77,29 @@ if ($form->isSubmitted() && $form->isValid()) {
 
         ]);
     }
+
+    #[Route('/email', name: 'app_mail')]
+    public function sendEmail(MailerInterface $mailer): Response
+    {
+    
+        $email = (new Email())
+            ->from('alarassaa147@gmail.com')
+            ->to('rassaaala@gmail.com')
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+    
+        try {
+            $mailer->send($email);
+            $message = 'Email sent successfully!';
+        } catch (\Exception $e) {
+            $message = 'An error occurred while sending the email: ' . $e->getMessage();
+        }
+    
+        return new Response($message);
+    }
+
+
+
+
 }

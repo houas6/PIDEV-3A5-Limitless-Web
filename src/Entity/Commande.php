@@ -63,7 +63,6 @@ private $prenom;
  * @var float
  *
  * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
- * @Assert\NotNull(message="Le total ne peut pas être nul.")
  */
 private $total;
 

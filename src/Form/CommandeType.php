@@ -36,15 +36,7 @@ class CommandeType extends AbstractType
             'constraints' => [
                 new NotBlank(),
             ],
-        ])
-        ->add('total', TextType::class, [
-                'label' => 'Total',
-                'disabled' => true,
-                'mapped' => false,
-                'required' => false,
-                'data' => '0.00', // valeur initiale du total
-                'attr' => ['readonly' => true],
-            ]);
+        ]);
 
        
         
