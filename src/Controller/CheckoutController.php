@@ -55,7 +55,7 @@ if ($form->isSubmitted() && $form->isValid()) {
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($commande);
     $entityManager->flush();
-  #  return $this->redirectToRoute("");
+    return $this->redirectToRoute("app_stripe");
 
 }
 
@@ -100,6 +100,45 @@ if ($form->isSubmitted() && $form->isValid()) {
     }
 
 
+    // #[Route('/stripe', name: 'app_stripe')]
+    // public function index(): Response
+    // {
+    //     return $this->render('stripe/index.html.twig', [
+    //         'stripe_key' => $_ENV["STRIPE_KEY"],
+    //     ]);
+    // }
+ 
+ 
+    // #[Route('/stripe/create-charge', name: 'app_stripe_charge', methods: ['POST'])]
+    // public function createCharge(Request $request)
+    // {
+    //     $idUsercon=1;
+    //     $entityManager=$this->getDoctrine()->getManager();
+    //     $utilisateur=$entityManager->getRepository(Utilisateur::class)->findOneBy([
+    //         'idUser' => $idUsercon
+    //     ]);
+    //     $panier = $entityManager->getRepository(Panier::class)->findBy([
+    //         'idUser' => $idUsercon
+    //     ]);
+    //     $totalPrice = 0;
 
+    //     foreach ($panier as $item) {
+    //         $product = $item->getIdProduit();
+    //         $quantity = $item->getQuantiteProduct();
+    //         $totalPrice += $product->getPrix() * $quantity;
+    //     }
+    //     Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
+    //     Stripe\Charge::create ([
+    //             "amount" => ($totalPrice+10) * 100,
+    //             "currency" => "usd",
+    //             "source" => $request->request->get('stripeToken'),
+    //             "description" => "Binaryboxtuts Payment Test"
+    //     ]);
+    //     $this->addFlash(
+    //         'success',
+    //         'Payment Successful!'
+    //     );
+    //     return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
+    // }
 
 }
