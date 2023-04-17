@@ -80,7 +80,7 @@ class StripeController extends AbstractController
     {
         $currentDate = new \DateTime();
         
-        $expirationDate = $currentDate->modify('+1 year');
+        $expirationDate = new \DateTime('+1 year');
         
         $nom = $utilisateur->getNom();
         $prenom = $utilisateur->getPrenom();
@@ -242,7 +242,7 @@ class StripeController extends AbstractController
         . "																			style=\"margin: 0; font-size: 14px; text-align: center;\">\n"
         . "																			<span\n"
         . "																				style=\"font-size:18px;color:#000000;\"><br>\n"
-        . "																				"."<br>Purchase Date : ".$currentDate->format('Y-m-d')."<br>Expiration Date : ".$expirationDate->format('2025-m-d') ."<br> </span></p>\n"
+        . "																				"."<br>Purchase Date : ".$currentDate->format('Y-m-d')."<br>Expiration Date : ".$expirationDate->format('Y-m-d') ."<br> </span></p>\n"
         . "																		<p\n"
         . "																			style=\"margin: 0; font-size: 14px; text-align: center;\">\n"
         . "																			<span\n"
@@ -414,8 +414,8 @@ class StripeController extends AbstractController
         $email = (new Email())
             ->from('alarassaa147@gmail.com')
             ->to('rassaaala@gmail.com')
-            ->subject('Purshase')
-            ->text('Sending emails is fun again!')
+            ->subject('Purchase from AutoDoc')
+            ->text('Purchase from AutoDoc')
             ->html($mailContent);
     
         try {
