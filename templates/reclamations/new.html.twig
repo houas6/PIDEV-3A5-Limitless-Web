@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  New Reclamations
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Ajouter Votre Reclamation
+  </h1>
+
+  {{ include('reclamations/_form.html.twig') }}
+
+  <a href="{{ path('app_reclamations_index') }}">back to list</a>
+{% endblock %}
