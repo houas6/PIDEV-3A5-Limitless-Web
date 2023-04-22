@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class MainController extends AbstractController
 {
@@ -35,15 +37,52 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/login', name: 'app_login')]
-    public function indexLogin(): Response
-    {
-        return $this->render('main/login.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+    #[Route('/connexion', name: 'app_login')]
+public function login(Request $request): Response
+{
+    $form = $this->createFormBuilder()
+        ->add('mail', EmailType::class, [
+            'label' => 'Adresse email',
+            'attr' => [
+                'placeholder' => 'Votre adresse email'
+            ]
+        ])
+        ->add('password', PasswordType::class, [
+            'label' => 'Mot de passe',
+            'attr' => [
+                'placeholder' => 'Votre mot de passe'
+            ]
+        ])
+        ->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $formData = $form->getData();
+        $mail = $formData['mail'];
+        $password = $formData['password'];
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(Utilisateur::class)->findOneBy(['mail' => $mail]);
+
+        if (!$user || $user->getPassword() !== $password) {
+            $this->addFlash('error', 'Email ou mot de passe incorrect.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        $session = $request->getSession();
+        $session->set('user', $user);
+
+        return $this->redirectToRoute('app_back');
     }
 
-    #[Route('/register', name: 'app_ajouter')]
+    return $this->render('main/login.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
+
+    #[Route('/inscription', name: 'app_ajouter')]
 public function indexAjouter(Request $request): Response
 {
     $user = new Utilisateur();
@@ -55,7 +94,7 @@ public function indexAjouter(Request $request): Response
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_afficher');
+        return $this->redirectToRoute('app_base');
     }
 
     return $this->render('main/register.html.twig', [

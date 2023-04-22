@@ -7,7 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controller\\MainController' => $baseDir . '/src/Controller/MainController.php',
+    'App\\Entity\\Utilisateur' => $baseDir . '/src/Entity/Utilisateur.php',
+    'App\\Form\\UtilisateurType' => $baseDir . '/src/Form/UtilisateurType.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',
+    'App\\Repository\\UtilisateurRepository' => $baseDir . '/src/Repository/UtilisateurRepository.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Collator' => $vendorDir . '/symfony/intl/Resources/stubs/Collator.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
