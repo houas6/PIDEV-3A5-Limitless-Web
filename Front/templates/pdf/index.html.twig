@@ -1,0 +1,27 @@
+<table border="0.5">
+        <thead>
+            <tr>
+                <th>IdLivraison</th>
+                <th>Livreur</th>
+                <th>DateLivraison</th>
+                <th>AdresseLivraison</th>
+                <th>CodePostalLivraison</th>
+                <th>StatusLivraison</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for livr in Livraison %}
+            <tr>
+                <td>{{ livr.idLivraison }}</td>
+                <td>{{ livr.idLivreur.nom }}</td>
+                <td>{{ livr.dateLivraison ? livr.dateLivraison|date('Y-m-d') : '' }}</td>
+                <td>{{ livr.adresseLivraison }}</td>
+                <td>{{ livr.codePostalLivraison }}</td>
+                <td>{{ livr.statusLivraison }}</td>
+                
+            </tr>
+       
+        {% endfor %}
+        </tbody>
+    </table>

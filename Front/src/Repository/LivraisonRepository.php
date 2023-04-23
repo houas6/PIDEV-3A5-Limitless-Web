@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Livraison;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\PdfGeneratorService;
 
 /**
  * @extends ServiceEntityRepository<Livraison>

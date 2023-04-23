@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Doctrine\ORM\EntityManagerInterface;
 #[Route('/livreurback')]
 class LivreurControllerback extends AbstractController
 {
@@ -74,5 +74,59 @@ class LivreurControllerback extends AbstractController
         }
 
         return $this->redirectToRoute('app_livreur_back_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/', name: 'app_livreur_index1', methods: ['GET','POST'])]
+    public function index1(EntityManagerInterface $entityManager,Request $request,LivreurRepository $livreurRepository): Response
+    {
+        $livreurs = $entityManager
+            ->getRepository(Livreur::class)
+            ->findAll();
+
+            /////////
+            $back = null;
+            
+            if($request->isMethod("POST")){
+                if ( $request->request->get('optionsRadios')){
+                    $SortKey = $request->request->get('optionsRadios');
+                    switch ($SortKey){
+                        case 'nom':
+                            $livreurs = $livreurRepository->SortBynom();
+                            break;
+    
+                        
+
+                        
+    
+    
+                    }
+                }
+                else
+                {
+                    $type = $request->request->get('optionsearch');
+                    $value = $request->request->get('Search');
+                    switch ($type){
+                        
+    
+                        case 'nom':
+                            $livreurs = $livreurRepository->findBynom($value);
+                            break;
+    
+                        
+                    
+    
+                    }
+                }
+
+                if ( $livreurs){
+                    $back = "success";
+                }else{
+                    $back = "failure";
+                }
+            }
+                ////////
+
+                return $this->render('livreurback/index.html.twig', [
+                    'livreurs' => $livreurs, 'back'=> $back
+                ]);
     }
 }

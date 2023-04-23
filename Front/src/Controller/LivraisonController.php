@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\PdfGeneratorService;
+use Doctrine\ORM\EntityManagerInterface;
+
+
 
 #[Route('/livraison')]
 class LivraisonController extends AbstractController
@@ -109,6 +113,22 @@ class LivraisonController extends AbstractController
 
         return $this->redirectToRoute('app_livraison_back_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/pdf/livraison', name: 'generator_service')]
+public function pdfService(EntityManagerInterface $entityManager): Response
+{ 
+    $LivraisonRepository = $entityManager->getRepository(Livraison::class);
+    $Livraison= $LivraisonRepository->findAll();
+
+    $html =$this->renderView('pdf/index.html.twig', ['Livraison' => $Livraison]);
+    $pdfGeneratorService=new PdfGeneratorService();
+    $pdf = $pdfGeneratorService->generatePdf($html);
+
+    return new Response($pdf, 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="document.pdf"',
+    ]);
+}
+
 
    
 }

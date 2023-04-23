@@ -63,4 +63,22 @@ class LivreurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function SortBynom(){
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.nom','ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+}
+
+
+public function findBynom( $nom)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.nom LIKE :nom')
+        ->setParameter('nom','%' .$nom. '%')
+        ->getQuery()
+        ->execute();
+}
+
 }

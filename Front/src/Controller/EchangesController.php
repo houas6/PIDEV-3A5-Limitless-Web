@@ -45,6 +45,8 @@ class EchangesController extends AbstractController
 
             return $this->redirectToRoute('app_echanges_index', [], Response::HTTP_SEE_OTHER);
         }
+        $echangesRepository->sms();
+        $this->addFlash('danger', 'reponse envoyée avec succées');
 
         return $this->renderForm('echanges/new.html.twig', [
             'echange' => $echange,
