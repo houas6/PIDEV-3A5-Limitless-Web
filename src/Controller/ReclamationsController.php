@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Dompdf;
 
 #[Route('/reclamations')]
 class ReclamationsController extends AbstractController
@@ -20,6 +21,15 @@ class ReclamationsController extends AbstractController
         return $this->render('reclamations/index.html.twig', [
             'reclamations' => $reclamationRepository->findAll(),
         ]);
+    }
+
+    #[Route('/rechercheReclamation', name: 'app_reclamation_recherche')]
+    public function rechercheReclamation(ReclamationRepository $reclamationRepository, Request  $request): Response
+    {
+        $data=$request->get('search');
+        $reclamation = $reclamationRepository->searchQB($data);
+        return $this->render('reclamations/index.html.twig',
+            ["reclamations" => $reclamation]);
     }
 
     #[Route('/new', name: 'app_reclamations_new', methods: ['GET', 'POST'])]

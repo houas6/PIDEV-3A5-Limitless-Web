@@ -30,6 +30,15 @@
         {% endfor %}
         </tbody>
     </table>
-
+<!-- Pagination START -->
+                         <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                            <!-- Content -->
+                            <p class="mb-0 text-center text-sm-start"></p>
+                            <!-- Pagination -->
+                            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                                {{ knp_pagination_render(reponse_reclamations) }}
+                            </nav>
+                        </div>  
+                        <!-- Pagination END -->
     <a href="{{ path('app_reponse_reclamation_new') }}">Create new</a>
 {% endblock %}

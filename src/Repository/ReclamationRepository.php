@@ -39,28 +39,38 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Reclamations[] Returns an array of Reclamations objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    function searchQB($searchTerm)
+    {
+        return $this->createQueryBuilder('rec')
+            ->where('rec.etat LIKE :searchTerm')
+            ->orWhere('rec.description LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Reclamations
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Reclamations[] Returns an array of Reclamations objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('r.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Reclamations
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
