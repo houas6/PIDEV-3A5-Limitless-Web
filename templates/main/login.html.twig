@@ -3,12 +3,28 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <h1>Connexion</h1>
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ form_label(form, 'Connexion', {'label_attr': {'class': 'h4'}}) }}</div>
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="mx-auto" style="width: 600px;">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(form.mail) }}
+                {{ form_row(form.password) }}
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_row(form.mail) }}
-        {{ form_row(form.password) }}
+                <button type="submit" class="btn btn-primary mt-3">Se connecter</button>
+            {{ form_end(form) }}
 
-        <button type="submit" class="btn btn-primary">Se connecter</button>
-    {{ form_end(form) }}
+        <a href="{{ path('app_ajouter') }}" class="btn btn-secondary mt-3">Pas de compte ? Inscrivez-vous</a>
+        </div>
+        
+    </div>
+    </div>
+    </div>
 {% endblock %}

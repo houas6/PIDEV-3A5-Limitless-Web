@@ -73,7 +73,11 @@ public function login(Request $request): Response
         $session = $request->getSession();
         $session->set('user', $user);
 
-        return $this->redirectToRoute('app_back');
+        if ($user->getRole() == 'admin') {
+            return $this->redirectToRoute('app_back');
+        } else {
+            return $this->redirectToRoute('app_base');
+        }
     }
 
     return $this->render('main/login.html.twig', [
