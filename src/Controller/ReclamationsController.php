@@ -24,12 +24,15 @@ class ReclamationsController extends AbstractController
     }
 
     #[Route('/rechercheReclamation', name: 'app_reclamation_recherche')]
-    public function rechercheReclamation(ReclamationRepository $reclamationRepository, Request  $request): Response
-    {
-        $data=$request->get('search');
+    public function rechercheReclamation(
+        ReclamationRepository $reclamationRepository,
+        Request $request
+    ): Response {
+        $data = $request->get('search');
         $reclamation = $reclamationRepository->searchQB($data);
-        return $this->render('reclamations/index.html.twig',
-            ["reclamations" => $reclamation]);
+        return $this->render('reclamations/index.html.twig', [
+            'reclamations' => $reclamation,
+        ]);
     }
 
     #[Route('/new', name: 'app_reclamations_new', methods: ['GET', 'POST'])]
@@ -43,7 +46,8 @@ class ReclamationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamationRepository->save($reclamation, true);
-
+            $reclamationRepository->sms();
+            $this->addFlash('danger', 'reponse envoyée avec succées');
             return $this->redirectToRoute(
                 'app_reclamations_index',
                 [],
