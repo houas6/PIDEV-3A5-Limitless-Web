@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +11,8 @@ use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use HWI\Bundle\OAuthBundle\Controller\ConnectController;
+
 
 class MainController extends AbstractController
 {
@@ -70,6 +73,12 @@ public function login(Request $request): Response
             return $this->redirectToRoute('app_login');
         }
 
+        // Vérifie si l'utilisateur est bloqué
+        if ($user->isBloque()) {
+            $this->addFlash('error', 'Vous êtes bloqué. Veuillez contacter le support.');
+            return $this->redirectToRoute('app_login');
+        }
+
         $session = $request->getSession();
         $session->set('user', $user);
 
@@ -117,6 +126,37 @@ public function indexAjouter(Request $request): Response
         ]);
     }
 
+    /**
+ * @Route("/bloquer/{id}", name="app_bloquer")
+ */
+public function bloquer(Utilisateur $user): Response
+{
+    $user->setBloque(true);
+
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($user);
+    $entityManager->flush();
+
+    $this->addFlash('success', 'L\'utilisateur a été bloqué.');
+
+    return $this->redirectToRoute('app_afficher');
+}
+
+/**
+ * @Route("/debloquer/{id}", name="app_debloquer")
+ */
+public function debloquer(Utilisateur $user): Response
+{
+    $user->debloquer();
+
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->flush();
+
+    return $this->redirectToRoute('app_afficher');
+}
+
+
+
     #[Route('/supprimerUser/{id}', name: 'app_supprimer')]
     public function indexSupprimer(Utilisateur $user): Response
     {
@@ -146,5 +186,17 @@ public function indexModifier(Request $request, $id): Response
 
     return $this->render('main/modifierUser.html.twig', ['f' => $form->createView()]);
 }
+
+
+#[Route('/rechercher-utilisateurs', name: 'app_rechercher_utilisateurs')]
+public function rechercherUtilisateurs(Request $request): Response
+{
+    $query = $request->query->get('q');
+    $users = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->rechercher($query);
+    return $this->render('main/afficher.html.twig', [
+        'u' => $users,
+    ]);
+}
+
 
 }

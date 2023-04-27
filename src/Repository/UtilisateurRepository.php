@@ -39,6 +39,20 @@ class UtilisateurRepository extends ServiceEntityRepository
         }
     }
 
+    public function rechercher(string $query)
+{
+    $entityManager = $this->getEntityManager();
+
+    $qb = $entityManager->createQueryBuilder();
+    $qb->select('u')
+        ->from(Utilisateur::class, 'u')
+        ->where('u.nom LIKE :query OR u.prenom LIKE :query OR u.cin LIKE :query')
+        ->setParameter('query', '%'.$query.'%');
+
+    return $qb->getQuery()->getResult();
+}
+
+
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */

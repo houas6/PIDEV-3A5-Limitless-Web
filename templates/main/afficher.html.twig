@@ -1,42 +1,52 @@
 {% extends 'back.html.twig' %}
 
-
 {% block body %}
 
+<!-- Search form -->
+<form action="{{ path('app_rechercher_utilisateurs') }}" method="GET" class="mb-4">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Rechercher un utilisateur" name="q">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit">Rechercher</button>
+    </div>
+  </div>
+</form>
+<!-- Table with stripped rows -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Mail</th>
+            <th>Adresse</th>
+            <th>Numéro</th>
+            <th>CIN</th>
+            <th>Blocage</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in u %}
+        <tr{% if user.bloque %} class="table-danger"{% endif %}>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.mail }}</td>
+            <td>{{ user.adresse }}</td>
+            <td>{{ user.numero }}</td>
+            <td>{{ user.cin }}</td>
+            <td>
+                {% if user.bloque %}
+    <a class="btn btn-danger" href="{{ path('app_debloquer', {'id': user.getIdUser()}) }}">Débloquer</a>
+{% else %}
+    <a class="btn btn-success" href="{{ path('app_bloquer', {'id': user.getIdUser()}) }}">Bloquer</a>
+{% endif %}
 
-                <!-- Table with stripped rows -->
-                <table class="table table-striped">
-                    <thead>
-                    <tr>     <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Mail</th>
-                        <th>Adresse</th>
-                        <th>Numero</th>
-                        <th>CIN</th>
-                        <th>Modification</th>
-                        <th>Suppression</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for user in u %}
-                        <tr>
-                            <td>{{ user.nom }}</td>
-                            <td>{{ user.prenom }}</td>
-                            <td>{{ user.mail }}</td>
-                            <td>{{ user.adresse }}</td>
-                            <td>{{ user.numero }}</td>
-                            <td>{{ user.cin }}</td>
-                            <td>
-                                <a class="btn btn-success" href="{{ path('app_modifier',{'id':user.getIdUser()}) }}">Modifier</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" href="{{ path('app_supprimer',{'id':user.getIdUser()}) }}">Supprimer</a>
-                            </td>
-                        </tr>
+            </td>
 
-                    {% endfor %}
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- End small tables -->
 
-                    </tbody>
-                </table>
-                <!-- End small tables -->
 {% endblock %}

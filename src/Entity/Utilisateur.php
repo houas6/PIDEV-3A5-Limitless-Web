@@ -86,6 +86,39 @@ class Utilisateur
      */
     private $numero;
 
+     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $bloque;
+
+    public function __construct()
+    {
+        $this->bloque = false; // Set default value to false
+    }
+
+    public function getBloque(): ?bool
+    {
+        return $this->bloque;
+    }
+
+    public function setBloque(bool $bloque): self
+    {
+        $this->bloque = $bloque;
+
+        return $this;
+    }
+
+    public function isBloque(): bool
+    {
+        return $this->bloque;
+    }
+
+    public function debloquer()
+{
+    $this->bloque = false;
+}
+
+
     public function getIdUser(): ?int
     {
         return $this->idUser;
