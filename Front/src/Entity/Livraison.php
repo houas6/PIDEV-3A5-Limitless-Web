@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\LivraisonRepository;
 use App\Entity\Livreur;
+use App\Entity\Commande;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LivraisonRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -69,6 +70,15 @@ private $codePostalLivraison;
      * })
      */
     private $idLivreur;
+     /**
+     * @var Commande|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id_commande")
+     * })
+     */
+    private $idCommande;
 
     public function getIdLivraison(): ?int
     {
@@ -131,6 +141,17 @@ private $codePostalLivraison;
     public function setIDLivreur(?Livreur $idLivreur): self
     {
         $this->idLivreur = $idLivreur;
+
+        return $this;
+    }
+    public function getIdCommande(): ?Commande
+    {
+        return $this->idCommande;
+    }
+
+    public function setIdCommande(?Commande $idCommande): self
+    {
+        $this->idCommande = $idCommande;
 
         return $this;
     }

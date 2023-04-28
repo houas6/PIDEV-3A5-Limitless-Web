@@ -10,6 +10,7 @@
             <tr>
                 <th>IdLivraison</th>
                 <th>Livreur</th>
+                <th>Commande</th>
                 <th>DateLivraison</th>
                 <th>AdresseLivraison</th>
                 <th>CodePostalLivraison</th>
@@ -22,6 +23,7 @@
             <tr>
                 <td>{{ livraison.idLivraison }}</td>
                 <td>{{ livraison.idLivreur.nom }}</td>
+                 <td>{{ livraison.idCommande.idCommande }}</td>
                 <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
                 <td>{{ livraison.adresseLivraison }}</td>
                 <td>{{ livraison.codePostalLivraison }}</td>

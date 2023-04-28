@@ -6,6 +6,7 @@ use DateTime;
 
 use App\Entity\Livreur;
 use App\Entity\Livraison;
+use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -35,6 +36,10 @@ class Livraison1backType extends AbstractType
             ->add('idLivreur', EntityType::class, [
                 'class' => Livreur::class,
                 'choice_label' => 'nom',
+            ])
+            ->add('id_commande', EntityType::class, [
+                'class' => Commande::class,
+                'choice_label' => 'id_commande',
             ])
             
         ;

@@ -50,7 +50,7 @@ class Commande
     private $total;
 
     /**
-     * @var \Utilisateur
+     * @var \Utilisateur|null
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({

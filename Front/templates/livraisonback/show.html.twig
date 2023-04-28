@@ -15,6 +15,10 @@
                 <th>livreur</th>
                 <td>{{  livraison.idLivreur.nom }}</td>
             </tr>
+             <tr>
+                <th>Commande</th>
+                <td>{{  livraison.idCommande.idCommande }}</td>
+            </tr>
             <tr>
                 <th>DateLivraison</th>
                 <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
