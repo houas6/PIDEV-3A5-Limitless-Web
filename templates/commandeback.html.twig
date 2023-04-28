@@ -5,6 +5,22 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Commande</h4>
+                <form method="GET" action="{{ path('app_back') }}">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" value="{{ search }}" placeholder="Recherche...">
+        <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+    </div>
+</form>
+   <form method="GET" action="{{ path('app_back') }}">
+        <div class="input-group">
+            <select name="sort" class="form-select">
+                <option value="">Trier par total</option>
+                <option value="asc" {% if sort == "asc" %}selected{% endif %}>Croissant</option>
+                <option value="desc" {% if sort == "desc" %}selected{% endif %}>Décroissant</option>
+            </select>
+            <button class="btn btn-outline-secondary" type="submit">Trier</button>
+        </div>
+    </form>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -14,6 +30,7 @@
                                 <th>Adresse</th>
                                 <th>Total</th>
                                 <th>Status</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -24,6 +41,7 @@
                                 <td>{{ c.prenom }}</td>
                                 <td>{{ c.adresse }}</td>
                                 <td>${{ c.total }}</td>
+                                
                                 <td>
                                 
                                     <form method="POST" action="{{ path('app_changer_status', {'id': c.getIdCommande(), 'status': c.status}) }}">

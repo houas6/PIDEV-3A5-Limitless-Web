@@ -12,6 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Dompdf\Dompdf;
+use App\Entity\Produit;
+use App\Entity\Commande;
+use App\Form\CommandeType;
+use App\Repository\ProduitRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 class StripeController extends AbstractController
 {
@@ -67,14 +76,101 @@ class StripeController extends AbstractController
                 "source" => $request->request->get('stripeToken'),
                 "description" => "Binaryboxtuts Payment Test"
         ]);
+
+
+
+       
+
+
                 $this->sendEmail($mailer,$utilisateur);
         $this->addFlash(
             'success',
             'Payment Successful!',
             'Email sent'
         );
+        $template = 'ticket_achat.html.twig'; // Replace with the name of your Twig template
+ 
+        try {
+            // Create a new instance of Dompdf
+            $dompdf = new Dompdf();
+    
+            // Render the PDF content using Twig
+            $html = $this->renderView($template, [
+                'date' => new \DateTime(),
+                'produits' => $panier,
+            ]);
+    
+            // Load the HTML content into Dompdf
+            $dompdf->loadHtml($html);
+    
+            // Set the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // Render the PDF
+            $dompdf->render();
+    
+            // Return the PDF as a response
+            return new Response(
+                $dompdf->output(),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'attachment; filename="ticket_achat.pdf"',
+                ]
+            );
+        } catch (\Exception $ex) {
+            // Handle any errors that occur during PDF generation
+            return new Response('Erreur lors de la génération du PDF: '.$ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+
         return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    public function genererTicketAchatPDF(Request $request)
+{
+    $idUsercon=1;
+    $entityManager=$this->getDoctrine()->getManager();
+    $panier = $entityManager->getRepository(Panier::class)->findBy([
+        'idUser' => $idUsercon
+    ]);
+    $template = 'ticket_achat.html.twig'; // Replace with the name of your Twig template
+ 
+    try {
+        // Create a new instance of Dompdf
+        $dompdf = new Dompdf();
+
+        // Render the PDF content using Twig
+        $html = $this->renderView($template, [
+            'date' => new \DateTime(),
+            'produits' => $panier,
+        ]);
+
+        // Load the HTML content into Dompdf
+        $dompdf->loadHtml($html);
+
+        // Set the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+        // Return the PDF as a response
+        return new Response(
+            $dompdf->output(),
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="ticket_achat.pdf"',
+            ]
+        );
+    } catch (\Exception $ex) {
+        // Handle any errors that occur during PDF generation
+        return new Response('Erreur lors de la génération du PDF: '.$ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
 
     public function sendEmail(MailerInterface $mailer,$utilisateur): Response
     {
