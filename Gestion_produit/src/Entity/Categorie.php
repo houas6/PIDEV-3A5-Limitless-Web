@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Categorie
@@ -23,6 +24,7 @@ class Categorie
      * @ORM\Column(name="idcategorie", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * *@Groups("post:read")
      */
     private $idcategorie;
 
@@ -35,6 +37,7 @@ class Categorie
      *
      *     )
      * @ORM\Column(name="nomcategorie", type="string", length=30, nullable=false)
+     *  @Groups("post:read")
      */
     private $nomcategorie;
 
