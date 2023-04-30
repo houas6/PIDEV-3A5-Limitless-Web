@@ -1,27 +1,20 @@
-<table border="0.5">
-        <thead>
-            <tr>
-                <th>IdLivraison</th>
-                <th>Livreur</th>
-                <th>DateLivraison</th>
-                <th>AdresseLivraison</th>
-                <th>CodePostalLivraison</th>
-                <th>StatusLivraison</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-        {% for livr in Livraison %}
-            <tr>
-                <td>{{ livr.idLivraison }}</td>
-                <td>{{ livr.idLivreur.nom }}</td>
-                <td>{{ livr.dateLivraison ? livr.dateLivraison|date('Y-m-d') : '' }}</td>
-                <td>{{ livr.adresseLivraison }}</td>
-                <td>{{ livr.codePostalLivraison }}</td>
-                <td>{{ livr.statusLivraison }}</td>
-                
-            </tr>
-       
-        {% endfor %}
-        </tbody>
-    </table>
+
+            <div style="display: block; margin-bottom: 10px; background-color: hsl(211, 91%, 20%); text-align: center;">
+                <label for="idLivraison">IdLivraison:</label>
+                <p id="idLivraison">{{ Livraison.idLivraison }}</p>
+            
+                <label for="livreur">Livreur:</label>
+                <p id="livreur">{{ Livraison.idLivreur.nom }}</p>
+            
+                <label for="dateLivraison">DateLivraison:</label>
+                <p id="dateLivraison">{{ Livraison.dateLivraison ? Livraison.dateLivraison|date('Y-m-d') : '' }}</p>
+            
+                <label for="adresseLivraison">AdresseLivraison:</label>
+                <p id="adresseLivraison">{{ Livraison.adresseLivraison }}</p>
+            
+                <label for="codePostalLivraison">CodePostalLivraison:</label>
+                <p id="codePostalLivraison">{{ Livraison.codePostalLivraison }}</p>
+            
+                <label for="statusLivraison">StatusLivraison:</label>
+                <p id="statusLivraison">{{ Livraison.statusLivraison }}</p>
+            </div>

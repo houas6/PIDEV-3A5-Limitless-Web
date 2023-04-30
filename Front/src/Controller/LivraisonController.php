@@ -71,7 +71,7 @@ class LivraisonController extends AbstractController
         ]);
     }
 // show back front
-    #[Route('/{idLivraison}/back', name: 'app_livraison_back_show', methods: ['GET'])]
+    #[Route('/back/{idLivraison}', name: 'app_livraison_back_show', methods: ['GET'])]
     public function showback(Livraison $livraison): Response
     {
         return $this->render('livraisonback/show.html.twig', [
@@ -83,6 +83,22 @@ class LivraisonController extends AbstractController
     {
         return $this->render('livraison/show.html.twig', [
             'livraison' => $livraison,
+        ]);
+    }
+    //pdf back
+    #[Route('/pdf/livraison/{idLivraison}', name: 'generator_service', methods: ['GET'])]
+    public function pdfService(EntityManagerInterface $entityManager,Livraison $idLivraison): Response
+    { 
+        $LivraisonRepository = $entityManager->getRepository(Livraison::class);
+        $Livraison= $LivraisonRepository->find($idLivraison);
+    
+        $html =$this->renderView('pdf/index.html.twig', ['Livraison' => $Livraison]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+    
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
         ]);
     }
     //editback
@@ -113,21 +129,9 @@ class LivraisonController extends AbstractController
 
         return $this->redirectToRoute('app_livraison_back_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/pdf/livraison', name: 'generator_service')]
-public function pdfService(EntityManagerInterface $entityManager): Response
-{ 
-    $LivraisonRepository = $entityManager->getRepository(Livraison::class);
-    $Livraison= $LivraisonRepository->findAll();
+   
 
-    $html =$this->renderView('pdf/index.html.twig', ['Livraison' => $Livraison]);
-    $pdfGeneratorService=new PdfGeneratorService();
-    $pdf = $pdfGeneratorService->generatePdf($html);
 
-    return new Response($pdf, 200, [
-        'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="document.pdf"',
-    ]);
-}
 
 
    

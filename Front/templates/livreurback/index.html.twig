@@ -3,7 +3,7 @@
 {% block title %}Livreur index{% endblock %}
 
 {% block body %}
-
+ <!--
     {% if back is defined %}
         {% if back == 'success' %}
             <div class="alert alert-success">Search successful!</div>
@@ -11,14 +11,14 @@
             <div class="alert alert-danger">No Livreur found!</div>
         {% endif %}
     {% endif %}
-
+-->
     <form method="POST" class="form-inline">
         <div class="form-group">
             <label for="optionsearch">Search by:</label>
             <select class="form-control" id="optionsearch" name="optionsearch">
                 <option value="nom">nom</option>
-               
-                
+                <option value="mail">mail</option>
+                <option value="telephone">telephone</option> -->
             </select>
         </div>
         <div class="form-group">
@@ -34,7 +34,10 @@
         <div class="form-group">
             <label for="optionsRadios">Sort by:</label>
             <div class="radio">
-                <label><input type="radio" name="optionsRadios" value="nom" checked>Nom</label>
+            <br>
+                <label><input type="radio" name="optionsRadios" value="nom" checked>Nom</label><br>
+                 <label><input type="radio" name="optionsRadios" value="mail" checked>mail</label><br>
+                  <label><input type="radio" name="optionsRadios" value="telephone" checked>telephone</label><br>
             </div>
             
             

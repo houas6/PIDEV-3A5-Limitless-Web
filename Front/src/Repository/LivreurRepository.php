@@ -70,13 +70,43 @@ public function SortBynom(){
         ->getResult()
         ;
 }
-
+public function SortBymail(){
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.mail','ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+}
+public function SortBytelephone(){
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.telephone','ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+}
 
 public function findBynom( $nom)
 {
     return $this-> createQueryBuilder('e')
         ->andWhere('e.nom LIKE :nom')
         ->setParameter('nom','%' .$nom. '%')
+        ->getQuery()
+        ->execute();
+}
+public function findBymail( $mail)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.mail LIKE :mail')
+        ->setParameter('mail','%' .$mail. '%')
+        ->getQuery()
+        ->execute();
+}
+
+public function findBytelephone( $telephone)
+{
+    return $this-> createQueryBuilder('e')
+        ->andWhere('e.telephone LIKE :telephone')
+        ->setParameter('telephone','%' .$telephone. '%')
         ->getQuery()
         ->execute();
 }

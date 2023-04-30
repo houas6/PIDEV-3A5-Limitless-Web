@@ -76,57 +76,52 @@ class LivreurControllerback extends AbstractController
         return $this->redirectToRoute('app_livreur_back_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/', name: 'app_livreur_index1', methods: ['GET','POST'])]
-    public function index1(EntityManagerInterface $entityManager,Request $request,LivreurRepository $livreurRepository): Response
-    {
-        $livreurs = $entityManager
-            ->getRepository(Livreur::class)
-            ->findAll();
+    public function index1(EntityManagerInterface $entityManager, Request $request, LivreurRepository $livreurRepository): Response
+{
+    $livreurs = $entityManager->getRepository(Livreur::class)->findAll();
+    $back = null;
 
-            /////////
-            $back = null;
-            
-            if($request->isMethod("POST")){
-                if ( $request->request->get('optionsRadios')){
-                    $SortKey = $request->request->get('optionsRadios');
-                    switch ($SortKey){
-                        case 'nom':
-                            $livreurs = $livreurRepository->SortBynom();
-                            break;
-    
-                        
-
-                        
-    
-    
-                    }
-                }
-                else
-                {
-                    $type = $request->request->get('optionsearch');
-                    $value = $request->request->get('Search');
-                    switch ($type){
-                        
-    
-                        case 'nom':
-                            $livreurs = $livreurRepository->findBynom($value);
-                            break;
-    
-                        
-                    
-    
-                    }
-                }
-
-                if ( $livreurs){
-                    $back = "success";
-                }else{
-                    $back = "failure";
-                }
+    if ($request->isMethod("POST")) {
+        if ($request->request->get('optionsRadios')) {
+            $SortKey = $request->request->get('optionsRadios');
+            switch ($SortKey) {
+                case 'nom':
+                    $livreurs = $livreurRepository->SortBynom();
+                    break;
+                case 'mail':
+                    $livreurs = $livreurRepository->SortBymail();
+                    break;
+                case 'telephone':
+                    $livreurs = $livreurRepository->SortBytelephone();
+                    break;
             }
-                ////////
+        } else {
+            $type = $request->request->get('optionsearch');
+            $value = $request->request->get('Search');
+            switch ($type) {
+                case 'nom':
+                    $livreurs = $livreurRepository->findBynom($value);
+                    break;
+                case 'mail':
+                    $livreurs = $livreurRepository->findBymail($value);
+                    break;
+                case 'telephone':
+                    $livreurs = $livreurRepository->findBytelephone($value);
+                    break;
+            }
+        }
 
-                return $this->render('livreurback/index.html.twig', [
-                    'livreurs' => $livreurs, 'back'=> $back
-                ]);
+        if ($livreurs) {
+            $back = "success";
+        } else {
+            $back = "failure";
+        }
     }
+
+    return $this->render('livreurback/index.html.twig', [
+        'livreurs' => $livreurs,
+        'back' => $back
+    ]);
+}
+
 }

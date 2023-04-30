@@ -31,6 +31,8 @@
                 <td>
                     <a href="{{ path('app_livraison_back_show', {'idLivraison': livraison.idLivraison}) }}">show</a>
                     <a href="{{ path('app_livraison_back_edit', {'idLivraison': livraison.idLivraison}) }}">edit</a>
+                    <a href="{{ path('generator_service', {'idLivraison': livraison.idLivraison}) }}">pdf</a>
+   
                 </td>
             </tr>
         {% else %}
@@ -40,7 +42,6 @@
         {% endfor %}
         </tbody>
     </table>
-     <a href="{{ path('generator_service') }}"><button type="button" class="btn btn-primary mb-3">PDF</button></a>
-
+    
     <a href="{{ path('app_livraison_back_new') }}">Create new</a>
 {% endblock %}
