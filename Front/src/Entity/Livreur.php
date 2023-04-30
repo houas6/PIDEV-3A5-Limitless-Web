@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\LivreurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Livreur
@@ -18,6 +19,7 @@ class Livreur
      * @ORM\Column(name="ID_livreur", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * *@Groups("post:read")
      */
     private $idLivreur;
 
@@ -25,6 +27,7 @@ class Livreur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=20, nullable=false)
+     *   @Groups("post:read")
      */
     private $nom;
 
@@ -32,6 +35,7 @@ class Livreur
      * @var string|null
      *
      * @ORM\Column(name="mail", type="string", length=50, nullable=true)
+     *   @Groups("post:read")
      */
     private $mail;
 
@@ -39,6 +43,7 @@ class Livreur
      * @var int|null
      *
      * @ORM\Column(name="telephone", type="integer", nullable=true)
+     *   @Groups("post:read")
      */
     private $telephone;
 
