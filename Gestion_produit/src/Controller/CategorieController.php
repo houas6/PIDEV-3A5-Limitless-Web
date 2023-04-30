@@ -30,6 +30,7 @@ class CategorieController extends AbstractController
         return new Response(json_encode($jsonContent));
        
     }
+    
 
 #[Route('/AddjsonM/{nom}', name: 'app_addjsonM')]
 public function addjson(Request $request,$nom)
