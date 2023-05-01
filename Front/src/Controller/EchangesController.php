@@ -6,11 +6,12 @@ use App\Entity\Echanges;
 use App\Form\Echanges1Type;
 use App\Form\Echanges1backType;
 use App\Repository\EchangesRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 #[Route('/echanges')]
 class EchangesController extends AbstractController
 {
@@ -25,10 +26,22 @@ class EchangesController extends AbstractController
     }
 
     #[Route('/back', name: 'app_echanges_back_index', methods: ['GET'])]
-    public function indexback(EchangesRepository $echangesRepository): Response
+    public function indexback(EchangesRepository $echangesRepository,Request $request , EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
+                    $echanges = $entityManager
+                    ->getRepository(Echanges::class)
+                    ->findAll();
+
+
+
+                        $echanges = $paginator->paginate(
+                        $echanges,
+                        $request->query->getInt('page', 1),2
+                        );
+
+
         return $this->render('echangesback/index.html.twig', [
-            'echanges' => $echangesRepository->findAll(),
+            'echanges' => $echanges,
         ]);
     }
 
