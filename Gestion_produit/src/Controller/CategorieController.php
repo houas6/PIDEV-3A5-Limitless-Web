@@ -30,7 +30,7 @@ class CategorieController extends AbstractController
         return new Response(json_encode($jsonContent));
        
     }
-    
+
 
 #[Route('/AddjsonM/{nom}', name: 'app_addjsonM')]
 public function addjson(Request $request,$nom)
@@ -71,21 +71,14 @@ public function updateMaisonMobile(Request $request, SerializerInterface $serial
     $jsonContent = $serializer->serialize($categorie, 'json', ['groups' => 'categorie']);
     return new Response('La categorie a été modifiée avec succès : '.$jsonContent);
 }
+
 #[Route("/deleteM", name:"supprimeM")]
-     
-    
 public function delete_mobile(Request $request, SerializerInterface $serializer ,EntityManagerInterface $entityManager): Response
     {   
         try{
         $id = $request->query->get("idcategorie");
     $entityManager = $this->getDoctrine()->getManager();
     $categorieRepository = $entityManager->getRepository(Categorie::class);
-    $produitRepository = $entityManager->getRepository(Produit::class);
-    /* $produits_categorie=$produitRepository->findBy(["idCategorie"=>$id]);
-     foreach($produits_categorie as $produit){
-        $entityManager->remove($produit);
-        $entityManager->flush();
-     }*/
     $categorie = $categorieRepository->find($id);
 
     if ($categorie !== null) {
@@ -98,12 +91,11 @@ public function delete_mobile(Request $request, SerializerInterface $serializer 
     }catch(\Exception $e){
         return new Response(" you have to delete all products attached to this categorie ,firstly "); 
     }
-    
-
-          
 
         return new Response(" categorie does not exist ");
     }
+
+
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {

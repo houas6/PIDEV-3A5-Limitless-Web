@@ -31,38 +31,16 @@
         }
     </style>
 </head>
-<body>
- <img src="{{ asset('uploads/logo.png') }}" alt="My logo" class="logo">
 
-                <table  border="0.5">
-                    <thead >
-                        <tr>
-                           <th>Id produit</th>
-                            <th>Nom produit</th>
-                            <th>Prix</th>
-                            <th>Description</th>
-                            <th>idUser</th>
-                            <th>Image</th>
-                            <th>Categorie</th>
-                
-                          
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for prod in produit %}
-            <tr>
-                
-                <td>{{ prod.id_Produit }}</td>
-                <td>{{ prod.nomproduit }}</td>
-                <td>{{ prod.prix }}</td>
-                <td>{{ prod.description }}</td>
-                <td>{{ prod.idUser }}</td>
-                <td><img src="{{ asset('uploads/'~prod.image) }}" style=" width:60px; height:50px; " alt=""/></td>
-                <td>{{ prod.idcategorie.nomcategorie }}</td>              
-                                 
-                                  
-                               
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+<body>
+<img src="{{ asset('uploads/logo.png') }}" alt="My logo" class="logo">
+                <div style="display: block; margin-bottom: 10px; background-color: hsl(211, 91%, 20%); text-align: center;">
+  <label>Id produit: {{ produit.id_Produit }}</label><br>
+  <label>Nom produit: {{ produit.nomproduit }}</label><br>
+  <label>Prix: {{ produit.prix }}</label><br>
+  <label>Description: {{ produit.description }}</label><br>
+  <label>idUser: {{ produit.idUser }}</label><br>
+  <label>Image: <img src="{{ asset('uploads/'~produit.image) }}" style=" width:60px; height:50px; " alt=""/></label><br>
+  <label>Categorie: {{ produit.idcategorie.nomcategorie }}</label>
+                </div>
+</body>

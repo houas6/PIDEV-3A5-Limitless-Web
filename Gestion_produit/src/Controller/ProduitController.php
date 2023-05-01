@@ -239,12 +239,12 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
             'produits' => $produits, 'back'=> $back
         ]);
     }
-    #[Route('/pdf/produit', name: 'generator_service')]
-    public function pdfService(): Response
+    #[Route('/pdf/produit/{id_produit}', name: 'generator_service', methods: ['GET'])]
+    public function pdfService(EntityManagerInterface $entityManager,Produit $id_produit): Response
     { 
         $produit= $this->getDoctrine()
         ->getRepository(Produit::class)
-        ->findAll();
+        ->find($id_produit);
 
    
 
