@@ -91,6 +91,11 @@ class Utilisateur
      */
     private $bloque;
 
+     /**
+     * @ORM\Column(type="string", length=180, )
+     */
+    private $reset_token;
+
     public function __construct()
     {
         $this->bloque = false; // Set default value to false
@@ -218,6 +223,18 @@ class Utilisateur
         $this->numero = $numero;
 
         return $this;
+    }
+
+   
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+
+    
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
     }
 
 }
