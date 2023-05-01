@@ -12,6 +12,8 @@ use App\Form\UtilisateurType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use HWI\Bundle\OAuthBundle\Controller\ConnectController;
+use App\Repository\UtilisateurRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class MainController extends AbstractController
@@ -117,12 +119,18 @@ public function indexAjouter(Request $request): Response
 
 
     #[Route('/afficherUser', name: 'app_afficher')]
-    public function indexAfficher(): Response
+    public function indexAfficher(UtilisateurRepository $utilisateurRepository, Request $request, PaginatorInterface $paginator): Response
     {
 
         $users = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->findAll();
+        $us = $utilisateurRepository->findAll();
+    //la méthode utilise le PaginatorInterface pour paginer les résultats. Le nombre d'éléments par page est fixé à 2.
+    $us = $paginator->paginate($us, $request->query->getInt('page', 1), 2);
+
+    
         return $this->render('main/afficher.html.twig', [
-            'u'=>$users
+            'u'=>$users,
+            'us' => $us
         ]);
     }
 
@@ -189,14 +197,27 @@ public function indexModifier(Request $request, $id): Response
 
 
 #[Route('/rechercher-utilisateurs', name: 'app_rechercher_utilisateurs')]
-public function rechercherUtilisateurs(Request $request): Response
-{
+public function rechercherUtilisateurs(UtilisateurRepository $utilisateurRepository, Request $request, PaginatorInterface $paginator): Response
+{   
     $query = $request->query->get('q');
-    $users = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->rechercher($query);
+    $us = $utilisateurRepository->findAll();
+    if ($query) {
+        $us = array_filter($us, function ($user) use ($query) {
+            return false !== stripos($user->getNom(), $query) || false !== stripos($user->getCin(), $query);
+        });
+    }
+    $us = $paginator->paginate($us, $request->query->getInt('page', 1), 5);
     return $this->render('main/afficher.html.twig', [
-        'u' => $users,
+        'us' => $us,
     ]);
 }
+
+#[Route('/', name: 'app_pagination', methods: ['GET'])]
+public function pagination(UtilisateurRepository $utilisateurRepository, Request $request, PaginatorInterface $paginator): Response
+{
+    
+}
+
 
 
 }

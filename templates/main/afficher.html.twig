@@ -1,5 +1,7 @@
 {% extends 'back.html.twig' %}
 
+
+
 {% block body %}
 
 <!-- Search form -->
@@ -11,8 +13,9 @@
     </div>
   </div>
 </form>
+
 <!-- Table with stripped rows -->
-<table class="table table-striped">
+<table class="table table-striped"  >
     <thead>
         <tr>
             <th>Nom</th>
@@ -25,7 +28,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for user in u %}
+        {% for user in us %}
         <tr{% if user.bloque %} class="table-danger"{% endif %}>
             <td>{{ user.nom }}</td>
             <td>{{ user.prenom }}</td>
@@ -48,5 +51,15 @@
     </tbody>
 </table>
 <!-- End small tables -->
-
+<!-- Pagination START -->
+                         <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                            <!-- Content -->
+                            <p class="mb-0 text-center text-sm-start"></p>
+                            <!-- Pagination -->
+                            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                                {{ knp_pagination_render(us) }}
+                            </nav>
+                        </div>  
+                        <!-- Pagination END -->
 {% endblock %}
+

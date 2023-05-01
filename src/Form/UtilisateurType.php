@@ -9,7 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 
 
 
@@ -31,7 +32,13 @@ class UtilisateurType extends AbstractType
                 'second_options'=>['label'=>'Confirmez le mot de passe']
                 
             ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3 ([
+                    'message' => 'karser_recaptcha3.message',
+                    'messageMissingValue' => 'karser_recaptcha3.message_missing_value',
+                ])])
             ->add('Creer',SubmitType::class);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void
