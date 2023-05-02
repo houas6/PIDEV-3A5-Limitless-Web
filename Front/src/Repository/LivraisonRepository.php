@@ -20,7 +20,7 @@ class LivraisonRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Livraison::class);
-    }
+    } 
 
     public function save(Livraison $entity, bool $flush = false): void
     {

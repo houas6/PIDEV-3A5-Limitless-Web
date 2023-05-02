@@ -87,54 +87,6 @@ public function sms(){
             );
         }
 
-        public function SortBynomProduit(){
-    return $this->createQueryBuilder('e')
-        ->orderBy('e.nomproduit','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
 
-public function SortBydescriptionProduit()
-{
-    return $this->createQueryBuilder('e')
-        ->orderBy('e.description','ASC')
-        ->getQuery()
-        ->getResult()
-        ;
-}
-public function SortBycategorieProduit()
-{
-    
-    return $this->createQueryBuilder('p')
-        ->join('p.idcategorie', 'c')
-        ->orderBy('c.nomcategorie', 'ASC')
-        ->getQuery()
-        ->getResult();
-}
-public function findBydescriptionProduit( $description)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.description LIKE :description')
-        ->setParameter('description','%' .$description. '%')
-        ->getQuery()
-        ->execute();
-}
-public function findBynomProduit( $nomproduit)
-{
-    return $this-> createQueryBuilder('e')
-        ->andWhere('e.nomproduit LIKE :nomproduit')
-        ->setParameter('nomproduit','%' .$nomproduit. '%')
-        ->getQuery()
-        ->execute();
-}
-public function findBycategorieProduit( $categorie)
-{
-    return $this->createQueryBuilder('p')
-        ->join('p.idcategorie', 'c')
-        ->andWhere('c.nomcategorie LIKE :categorie')
-        ->setParameter('categorie', '%' . $categorie . '%')
-        ->getQuery()
-        ->getResult();
-}
+
 }
