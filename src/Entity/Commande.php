@@ -5,7 +5,7 @@ namespace App\Entity;
 use Assert\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Commande

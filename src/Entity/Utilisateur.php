@@ -5,6 +5,7 @@ namespace App\Entity;
 use Assert\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Utilisateur
@@ -21,6 +22,7 @@ class Utilisateur
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("panier")
      */
     private $idUser;
 
@@ -40,6 +42,7 @@ class Utilisateur
  * @Assert\Length(max=50, maxMessage="L'adresse mail doit avoir au maximum {{ limit }} caractères")
  *
  * @ORM\Column(name="mail", type="string", length=50, nullable=false)
+
  */
 private $mail;
 
@@ -48,6 +51,7 @@ private $mail;
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+
      */
     private $nom;
 
@@ -55,6 +59,7 @@ private $mail;
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
+   
      */
     private $prenom;
 
@@ -62,6 +67,7 @@ private $mail;
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=100, nullable=false)
+
      */
     private $adresse;
 

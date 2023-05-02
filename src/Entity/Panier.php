@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Panier
@@ -19,6 +20,7 @@ class Panier
      * @ORM\Column(name="id_panier", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("panier")
      */
     private $idPanier;
 
@@ -26,6 +28,7 @@ class Panier
      * @var int
      *
      * @ORM\Column(name="quantite_product", type="integer", nullable=false)
+     * @Groups("panier")
      */
     private $quantiteProduct;
 
@@ -36,6 +39,7 @@ class Panier
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
+     * @Groups("panier")
      */     
     private $idUser;
 
@@ -46,6 +50,7 @@ class Panier
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id_produit")
      * })
+     * @Groups("panier")
      */
     private $idProduit;
 

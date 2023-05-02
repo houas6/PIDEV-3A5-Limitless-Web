@@ -45,7 +45,7 @@
                     {# pannier debut #}
                      {% for item in panier %}
                         <tr>
-                            <td class="align-middle"><img src={{item.IdProduit.getImage}} alt="" style="width: 50px;"> {{item.IdProduit.getNomProduit}}</td>
+                            <td class="align-middle"><img src="http://localhost/{{ item.IdProduit.getImage }}" alt="" style="width: 50px;"> {{item.IdProduit.getNomProduit}}</td>
                             <td class="align-middle">${{item.IdProduit.getPrix}}</td>
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">

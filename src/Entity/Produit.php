@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Produit
  *
@@ -20,6 +20,7 @@ class Produit
      * @ORM\Column(name="id_produit", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("panier")
      */
     private $idProduit;
 
@@ -27,6 +28,7 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="nom_produit", type="string", length=30, nullable=false)
+     * @Groups("panier")
      */
     private $nomProduit;
 
@@ -34,6 +36,7 @@ class Produit
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     * @Groups("panier")
      */
     private $prix;
 
