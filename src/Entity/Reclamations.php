@@ -104,11 +104,11 @@ class Reclamations
         return $this->reponseReclamation;
     }
 
-    /* public function setReponseReclamation(
+     public function setReponseReclamation(
         ?ReponseReclamation $reponseReclamation
     ): self {
         $this->reponseReclamation = $reponseReclamation;
 
         return $this;
-    }*/
+    }
 }

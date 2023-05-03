@@ -41,36 +41,18 @@
     <thead>
       <tr>
         <th>
-          Etat
+          contenu
         </th>
-        <th>
-          Description
-        </th>
-        <th>
-          actions
-        </th>
-         <th>
-          reclamations
-        </th>
+       
       </tr>
     </thead>
     <tbody>
       {% for reclamation in reclamations %}
         <tr>
           <td>
-            {{ reclamation.etat }}
+            {{ reclamation.contenu }}
           </td>
-          <td>
-            {{ reclamation.description }}
-          </td>
-          <td>
-            <a href="{{path('app_reclamations_show',{id: reclamation.id})}}">
-              show
-            </a>
-          </td>
-          <td>
-             <a class="btn btn-danger" href="{{path('app_join',{id: reclamation.reponseReclamation.getId})}}">afficher</a>
-          </td>
+
         </tr>
       {% else %}
         <tr>
@@ -82,5 +64,5 @@
     </tbody>
   </table>
 
-  <a href="{{ path('app_reclamations_new') }}">Create new</a>
+ 
 {% endblock %}

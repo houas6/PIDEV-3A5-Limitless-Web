@@ -1,0 +1,51 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}
+  Les Reponses Liee a Cette Reclamation
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Les Reponses Lieé a Cette Reclamation
+  </h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Etat
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reclamation in reclamations %}
+        <tr>
+          <td>
+            {{ reclamation.etat }}
+          </td>
+          <td>
+            {{ reclamation.description }}
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4">
+            no records found
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Pagination START -->
+  <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+    <!-- Content -->
+    <p class="mb-0 text-center text-sm-start"></p>
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center mb-0"
+      aria-label="navigation"></nav>
+  </div>
+  <!-- Pagination END -->
+{% endblock %}

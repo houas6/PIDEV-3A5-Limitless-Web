@@ -13,10 +13,10 @@ class ReclamationsType extends AbstractType
         FormBuilderInterface $builder,
         array $options
     ): void {
-        $builder->add('etat')->add(
-            'description'
-            /*->add('reponseReclamation')*/
-        );
+        $builder->add('etat')
+        ->add( 'description')
+            ->add('reponseReclamation')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

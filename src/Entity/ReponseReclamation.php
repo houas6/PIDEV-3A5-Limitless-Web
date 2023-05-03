@@ -32,10 +32,6 @@ class ReponseReclamation
      * @Assert\NotBlank(message="Le nom ne peut pas être vide.")
      * @Assert\Length(max=50, maxMessage="Le nom ne peut pas contenir plus de {{ limit }} caractères.")
      * @Assert\Length(min=5, minMessage="Le nom ne peut pas contenir moin de {{ limit }} caractères.")
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z]+$/",
-     *     message="Le nom ne doit pas contenir de chiffres ou de caractères spéciaux."
-     * )
      */
     private $contenu;
 
