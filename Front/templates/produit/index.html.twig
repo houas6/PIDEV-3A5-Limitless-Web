@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1><div style = "position:relative; left:450px; top:0px;" >Produit</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Id produit</th>
+                <th>Nom produit</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>idUser</th>
+                <th>Image</th>
+                <th>Categorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+        {% if produit.idUser.idUser == 13 %}
+            <tr>
+                
+                <td>{{ produit.id_Produit }}</td>
+                <td>{{ produit.nomproduit }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.idUser.nom }}</td>
+                <td><img src="{{ asset('uploads/'~produit.image) }}" style=" width:60px; height:50px; " alt=""/></td>
+                <td>{{ produit.idcategorie.nomcategorie }}</td>
+
+                <td>
+
+                    <a href="#">acheter</a>
+                    <a href="{{ path('app_echanges_new') }}">echanger</a>
+
+                </td>
+            </tr>
+                 {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% endblock %}
