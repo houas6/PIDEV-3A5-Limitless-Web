@@ -1,0 +1,13 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Edit Livreur{% endblock %}
+
+{% block body %}
+
+
+  {{ include('livreurback/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_livreur_back_index') }}">back to list</a>
+
+    {{ include('livreurback/_delete_form.html.twig') }}
+{% endblock %}

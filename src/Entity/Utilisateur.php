@@ -229,10 +229,6 @@ class Utilisateur
         return $this->nom; 
     }
 
-
-
-}
-
    
     public function getResetToken()
     {

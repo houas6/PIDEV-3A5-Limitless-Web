@@ -1,0 +1,71 @@
+{% block javascripts %}
+   
+{% endblock %}
+
+{% block body %}
+<style>
+table {
+  border-color: #8B0000;
+  line-height: 2;
+}
+img {
+    position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: auto;
+    }
+title {
+        color: 	#8B0000;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+</style>
+ <!-- Begin Page Content -->
+<img src="data:image/jpeg;base64,{{logobase64}}" />
+
+                <div class="container-fluid">
+
+                    
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 ;style=text-align: center; color: 	# 8B0000;">
+                    <h2 style="text-align: center; color: 	# 8B0000;">Reclamations</h2>
+                        </div>
+                        <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered  border: 2px solid blue; " border=2 id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;">Etat</th>
+                                    <th style="text-align:center;">description</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rec in reclamation %}
+                                <tr>
+                                    <td style="text-align:center;">{{ rec.etat }}</td>
+                                    <td style="text-align:center;">{{ rec.description }}</td>
+                                 
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" style="text-align:center;">No records found</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                        </div>
+
+                    </div>
+
+                </div>
+              
+
+
+
+    
+{% endblock %}

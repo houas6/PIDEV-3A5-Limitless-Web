@@ -248,7 +248,7 @@ public function delete(Request $request, Produit $produit,EntityManagerInterface
 
    
 
-        $html =$this->renderView('pdf/index.html.twig', ['produit' => $produit]);
+        $html =$this->renderView('pdf/indexproduit.html.twig', ['produit' => $produit]);
         $pdfGeneratorService=new PdfGeneratorService();
         $pdf = $pdfGeneratorService->generatePdf($html);
 

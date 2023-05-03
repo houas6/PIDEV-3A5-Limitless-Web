@@ -1,0 +1,21 @@
+                <img src="logo.jpg"  >
+            <div style="display: block; margin-bottom: 10px; background-color:#F06345; text-align: center;">
+                <label for="idLivraison"style="font-family: Times New Roman, Times, serif;font-size: 25px;">colis num: </label>
+                
+                <p id="idLivraison"style="color:#473734;">{{ Livraison.idLivraison }}</p>
+            
+                <label for="livreur"style="font-family: Times New Roman, Times, serif;font-size: 25px;">Livreur:</label>
+                <p id="livreur" style="color:#473734;">{{ Livraison.idLivreur.nom }}</p>
+            
+                <label for="dateLivraison"style="font-family: Times New Roman, Times, serif;font-size: 25px;">DateLivraison:</label>
+                <p id="dateLivraison" style="color:#473734;">{{ Livraison.dateLivraison ? Livraison.dateLivraison|date('Y-m-d') : '' }}</p>
+            
+                <label for="adresseLivraison"style="font-family: Times New Roman, Times, serif;font-size: 25px;">AdresseLivraison:</label>
+                <p id="adresseLivraison" style="color:#473734;">{{ Livraison.adresseLivraison }}</p>
+            
+                <label for="codePostalLivraison"style="font-family: Times New Roman, Times, serif;font-size: 25px;">CodePostalLivraison:</label>
+                <p id="codePostalLivraison" style="color:#473734;">{{ Livraison.codePostalLivraison }}</p>
+            
+                <label for="statusLivraison"style="font-family: Times New Roman, Times, serif;font-size: 25px;">StatusLivraison:</label>
+                <p id="statusLivraison" style="color:#473734;">{{ Livraison.statusLivraison }}</p>
+            </div>

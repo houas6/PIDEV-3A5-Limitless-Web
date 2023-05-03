@@ -241,11 +241,7 @@ public function sendEmail(MailerInterface $mailer,$mail,$url): Response
     
         return new Response($message);
     }
-#[Route('/', name: 'app_pagination', methods: ['GET'])]
-public function pagination(UtilisateurRepository $utilisateurRepository, Request $request, PaginatorInterface $paginator): Response
-{
-    
-}
+
 
  /**
      * @Route("/forgot", name="forgot")
