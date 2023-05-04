@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Produit
  *
- * @ORM\Table(name="produit", indexes={@ORM\Index(name="FK_Pu", columns={"id_user"})})
- * @ORM\Entity
+ * @ORM\Table(name="produit")
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
  */
 class Produit
@@ -20,29 +20,37 @@ class Produit
      * @ORM\Column(name="id_produit", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("panier")
      */
-    private $idProduit;
+    private $id_produit;
 
     /**
      * @var string
+     *  * @Assert\NotBlank(message=" nom doit etre non vide")
+     * @Assert\Length(
+     *      min = 4,
+     *      minMessage=" Entrer un nom au minimum de 4 caracteres"
      *
+     *     )
      * @ORM\Column(name="nom_produit", type="string", length=30, nullable=false)
-     * @Groups("panier")
      */
-    private $nomProduit;
+    private $nomproduit;
 
     /**
      * @var float
-     *
+     ** @Assert\NotBlank(message=" prix doit etre non vide")
+     * @Assert\Positive
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     * @Groups("panier")
      */
     private $prix;
 
     /**
      * @var string
+      * @Assert\NotBlank(message=" description doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer ue description au minimum de 5 caracteres"
      *
+     *     )
      * @ORM\Column(name="description", type="string", length=30, nullable=false)
      */
     private $description;
@@ -50,33 +58,55 @@ class Produit
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=100, nullable=false)
+     * @ORM\Column(name="image", type="string", length=30, nullable=false)
      */
     private $image;
 
     /**
-     * @var \Utilisateur
+     * @var \App\Entity\Utilisateur|null
      *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
      */
     private $idUser;
 
-    public function getIdProduit(): ?int
+    /**
+     * @var \App\Entity\Categorie|null
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idcategorie", referencedColumnName="idcategorie")
+     *  })
+     */
+    private $idcategorie;
+
+
+    
+
+    
+
+    public function getId_produit(): ?int
     {
-        return $this->idProduit;
+        return $this->id_produit;
+    }
+
+    public function setId_produit(int $id_produit): self
+    {
+        $this->id_produit = $id_produit;
+
+        return $this;
     }
 
     public function getNomProduit(): ?string
     {
-        return $this->nomProduit;
+        return $this->nomproduit;
     }
 
-    public function setNomProduit(string $nomProduit): self
+    public function setNomProduit(string $nomproduit): self
     {
-        $this->nomProduit = $nomProduit;
+        $this->nomproduit = $nomproduit;
 
         return $this;
     }
@@ -105,29 +135,43 @@ class Produit
         return $this;
     }
 
-    public function getImage()
+    public function getIdUser(): ?Utilisateur
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?Utilisateur $utilisateur): self
+    {
+        $this->idUser = $utilisateur;
+
+        return $this;
+    }
+    public function getIdcategorie(): ?Categorie
+    {
+        return $this->idcategorie;
+    }
+
+    public function setIdcategorie(?Categorie $categorie): self
+    {
+        $this->idcategorie = $categorie;
+
+        return $this;
+    }
+
+
+
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image): self
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getIdUser(): ?Utilisateur
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(?Utilisateur $idUser): self
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
-
+    
 
 }

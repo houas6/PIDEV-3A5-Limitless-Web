@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Products</h1>
+
+    {% if back is defined %}
+        {% if back == 'success' %}
+            <div class="alert alert-success">Search successful!</div>
+        {% elseif back == 'failure' %}
+            <div class="alert alert-danger">No products found!</div>
+        {% endif %}
+    {% endif %}
+
+    <form method="POST" class="form-inline">
+        <div class="form-group">
+            <label for="optionsearch">Search by:</label>
+            <select class="form-control" id="optionsearch" name="optionsearch">
+                <option value="nomproduit">nom produit</option>
+                <option value="description">Description</option>
+                <option value="categorie">Categorie</option>
+                
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Search">Search:</label>
+            <input type="text" class="form-control" id="Search" name="Search">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <br>
+
+    <form method="POST" class="form-inline">
+        <div class="form-group">
+            <label for="optionsRadios">Sort by:</label>
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="nomproduit" checked>Nom produit</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="description">Description</label>
+            </div>
+            
+            <div class="radio">
+                <label><input type="radio" name="optionsRadios" value="categorie">Categorie</label>
+            </div>
+            
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <br>
+
+    {% for produit in produits %}
+<div style="display:inline-block; text-align:center; width: 30%;">
+    <h4>{{ produit.nomproduit }}</h4>
+    {% if produit.image %}
+        <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}" style="width: 50%;">
+    {% else %}
+        <p>No image</p>
+    {% endif %}
+    <p><strong>Prix:</strong> {{ produit.prix }}</p>
+    <p><strong>Description:</strong> {{ produit.description }}</p>
+    <p><strong>Categorie:</strong> {{ produit.idcategorie.nomcategorie }}</p>
+    <a href="{{ path('app_echanges_new') }}">echanger</a>
+    <a class="add-to-cart" href="{{ path('add_panier', {'idprod': produit.id_produit}) }}">Add to Cart</a>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}

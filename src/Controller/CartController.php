@@ -108,4 +108,35 @@ public function decrement($idProduit) {
     return $this->redirectToRoute('app_cart');
     } 
        
+
+     /**
+ * @Route("/cart/{idprod}",name="add_panier")
+ */
+public function add($idprod) {
+    $entityManager=$this->getDoctrine()->getManager();
+    $utilisateur = $entityManager->getRepository(Utilisateur::class)->find(1);
+    $produit = $entityManager->getRepository(Produit::class)->find($idprod);
+    // Create a new Basket entity
+    $panier = $entityManager->getRepository(Panier::class)->findOneBy([
+        'idUser' => $utilisateur,
+        'idProduit' => $produit
+    ]);
+
+    if ($panier) {
+        // If the product is already in the cart, increment the quantity
+        $quantite = $panier->getQuantiteProduct();
+        $panier->setQuantiteProduct($quantite + 1);
+    } else {
+        // If the product is not in the cart, create a new Basket entity with quantity = 1
+        $panier = new Panier();
+        $panier->setIdUser($utilisateur);
+        $panier->setIdProduit($produit);
+        $panier->setQuantiteProduct(1);
+    }
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($panier);
+    $entityManager->flush();
+    
+    return $this->redirectToRoute('app_cart');
+    } 
 }

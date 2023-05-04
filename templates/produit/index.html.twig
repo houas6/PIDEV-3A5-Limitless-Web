@@ -1,0 +1,60 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1><div style = "position:relative; left:450px; top:0px;" >Produit</h1>
+
+     
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Id produit</th>
+                <th>Nom produit</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>idUser</th>
+                <th>Image</th>
+                <th>Categorie</th>
+                <th>Qrcode</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                
+                <td>{{ produit.id_Produit }}</td>
+                <td>{{ produit.nomproduit }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.idUser }}</td>
+                <td><img src="{{ asset('uploads/'~produit.image) }}" style=" width:60px; height:50px; " alt=""/></td>
+                <td>{{ produit.idcategorie.nomcategorie }}</td>
+                <td><a href="{{ path('app_qr_codes', {'id_produit': produit.id_produit}) }}">qr code</a></td>
+
+                <td>
+                    <a href="{{ path('app_produit_show', {'id_produit': produit.id_produit}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}">edit</a>
+                    {{ include('produit/_delete_form.html.twig') }}
+                    <a href="{{ path('generator_service',{'id_produit': produit.id_produit}) }}"><button type="button" class="btn btn-primary mb-3">PDF</button></a>
+
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   <a href="{{ path('app_produit_new') }}" class="btn btn-primary mb-3">Ajouter un produit</a>
+    <a href="{{ path('stats') }}"><button type="button" class="btn btn-primary mb-3">stats</button></a>
+  
+   {{ knp_pagination_render(produits) }}
+{% endblock %}

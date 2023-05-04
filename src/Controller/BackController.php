@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BackController extends AbstractController
 {
-    #[Route('/back', name: 'app_back')]
+    #[Route('/backcommande', name: 'app_backcomm')]
     public function index(Request $request): Response
     {
         $repository = $this->getDoctrine()->getManager()->getRepository(Commande::class);
@@ -42,14 +42,14 @@ class BackController extends AbstractController
         ]);
     }
     
-    #[Route('/supprimerUser/{id}', name: 'app_supprimer')]
+    #[Route('/supprimerUser/{id}', name: 'app_supprimercomm')]
     public function indexSupprimer(Commande $c): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($c);
         $em->flush();
 
-        return $this->redirectToRoute('app_back');
+        return $this->redirectToRoute('app_backcomm');
     }
     /**
  * @Route("/commande/{id}", name="app_changer_status")
@@ -64,6 +64,6 @@ public function app_changer_status(Request $request, Commande $commande)
     $entityManager->persist($commande);
     $entityManager->flush();
 
-    return $this->redirectToRoute('app_back');
+    return $this->redirectToRoute('app_backcomm');
 }
 }

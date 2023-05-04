@@ -37,7 +37,7 @@ class TestController extends AbstractController
     {
         $entityManager=$this->getDoctrine()->getManager();
         $utilisateur = $entityManager->getRepository(Utilisateur::class)->find(1);
-        $produit = $entityManager->getRepository(Produit::class)->find(22);
+        $produit = $entityManager->getRepository(Produit::class)->find(29);
         // Create a new Basket entity
         $panier = $entityManager->getRepository(Panier::class)->findOneBy([
             'idUser' => $utilisateur,

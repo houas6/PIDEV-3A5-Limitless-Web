@@ -2,96 +2,127 @@
 
 namespace App\Entity;
 
-use Assert\NotBlank;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="mail", columns={"mail"}), @ORM\UniqueConstraint(name="cin", columns={"cin"})})
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
 class Utilisateur
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups("panier")
+     * @ORM\Column(name="id_user", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $idUser;
-
-    /**
-     * @var string
+   /**
+     * @Assert\NotBlank(message="Le mot de passe est requis")
+     * @Assert\Length(max=50, maxMessage="Le mot de passe doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="password", type="string", length=50, nullable=false)
      */
     private $password;
 
-  /**
- * @Assert\NotBlank(message="L'adresse mail est requise")
- * @Assert\Regex(
- *     pattern="/^[^@\s]+@[^@\s]+\.[^@\s]+$/",
- *     message="L'adresse mail n'est pas valide"
- * )
- * @Assert\Length(max=50, maxMessage="L'adresse mail doit avoir au maximum {{ limit }} caractères")
- *
- * @ORM\Column(name="mail", type="string", length=50, nullable=false)
-
- */
-private $mail;
-
+    /**
+     * @Assert\NotBlank(message="L'adresse mail est requise")
+     * @Assert\Email(message="L'adresse mail n'est pas valide")
+     * @Assert\Length(max=50, maxMessage="L'adresse mail doit avoir au maximum {{ limit }} caractères")
+     *
+     * @ORM\Column(name="mail", type="string", length=50, nullable=false)
+     */
+    private $mail;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le nom est requis")
+     * @Assert\Length(max=50, maxMessage="Le nom doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
-
      */
     private $nom;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le prénom est requis")
+     * @Assert\Length(max=50, maxMessage="Le prénom doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
-   
      */
     private $prenom;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="L'adresse est requise")
+     * @Assert\Length(max=100, maxMessage="L'adresse doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="adresse", type="string", length=100, nullable=false)
-
      */
     private $adresse;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le rôle est requis")
+     * @Assert\Length(max=30, maxMessage="Le rôle doit avoir au maximum {{ limit }} caractères")
      *
      * @ORM\Column(name="role", type="string", length=30, nullable=false)
      */
     private $role;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message="Le numéro de CIN est requis")
+     * @Assert\Regex(pattern="/^[0-9]{8}$/", message="Le numéro de CIN doit être composé de 8 chiffres")
      *
      * @ORM\Column(name="cin", type="string", length=8, nullable=false)
      */
     private $cin;
 
-  /**
+    /**
      * @Assert\NotBlank(message="Le numéro de téléphone est requis")
      * @Assert\Regex(pattern="/^[0-9]{8}$/", message="Le numéro de téléphone doit être composé de 8 chiffres")
      *
      * @ORM\Column(name="numero", type="string", length=50, nullable=false)
      */
     private $numero;
+
+     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $bloque;
+
+     /**
+     * @ORM\Column(type="string", length=180, )
+     */
+    private $reset_token;
+
+    public function __construct()
+    {
+        $this->bloque = false; // Set default value to false
+    }
+
+    public function getBloque(): ?bool
+    {
+        return $this->bloque;
+    }
+
+    public function setBloque(bool $bloque): self
+    {
+        $this->bloque = $bloque;
+
+        return $this;
+    }
+
+    public function isBloque(): bool
+    {
+        return $this->bloque;
+    }
+
+    public function debloquer()
+{
+    $this->bloque = false;
+}
+
 
     public function getIdUser(): ?int
     {
@@ -193,10 +224,18 @@ private $mail;
 
         return $this;
     }
-    public function __toString(): string
+
+   
+    public function getResetToken()
     {
-        return $this->getNom() . ' ' . $this->getPrenom();
+        return $this->reset_token;
     }
 
+    
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
+    }
 
 }
+

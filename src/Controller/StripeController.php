@@ -509,7 +509,7 @@ class StripeController extends AbstractController
         . "</html>";
         $email = (new Email())
             ->from('alarassaa147@gmail.com')
-            ->to('rassaaala@gmail.com')
+            ->to($utilisateur->getMail())
             ->subject('Purchase from AutoDoc')
             ->text('Purchase from AutoDoc')
             ->html($mailContent);

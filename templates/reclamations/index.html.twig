@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Reclamations index
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('input[name="search"]').on('input', function () {
+                var searchTerm = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('app_reclamation_recherche') }}",
+                    data: { search: searchTerm },
+                    success: function (response) {
+                        $('#reclamation-list').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="col-lg-4 col-6 text-left">
+<form method="post" action="{{ path('app_reclamation_recherche') }}">
+<div class="input-group">
+<input type="text" name="search" class="form-control" placeholder="chercher une reclamation">
+<div class="input-group-append">
+<button class="input-group-text bg-transparent text-primary" type="submit">
+<i class="fa fa-search"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Etat
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          actions
+        </th>
+         <th>
+          reclamations
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reclamation in reclamations %}
+        <tr>
+          <td>
+            {{ reclamation.etat }}
+          </td>
+          <td>
+            {{ reclamation.description }}
+          </td>
+          <td>
+            <a href="{{path('app_reclamations_show',{id: reclamation.id})}}">
+              show
+            </a>
+          </td>
+          <td>
+             <a class="btn btn-danger" href="{{path('app_join',{id: reclamation.reponseReclamation.getId})}}">afficher</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4">
+            no records found
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ path('app_reclamations_new') }}">Create new</a>
+{% endblock %}

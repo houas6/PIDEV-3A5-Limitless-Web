@@ -1,0 +1,51 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Id_produit</th>
+                <td>{{ produit.id_produit }}</td>
+            </tr>
+            <tr>
+                <th>Nom produit</th>
+                <td>{{ produit.nomproduit }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th>idUser</th>
+                <td>{{ produit.idUser }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                {% if produit.image %}
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" alt="{{ produit.nomproduit }}" alt="" style="width: 50px;">
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th>Categorie</th>
+                <td>{{ produit.idcategorie.nomcategorie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_index') }}">back to list</a>
+
+   <a href="{{ path('app_produit_edit', {'id_produit': produit.id_produit}) }}">edit</a>
+
+
+{{ include('produit/_delete_form.html.twig', {'id_produit': produit.id_produit}) }}
+{% endblock %}

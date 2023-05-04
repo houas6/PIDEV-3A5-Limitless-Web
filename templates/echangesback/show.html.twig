@@ -1,0 +1,41 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Echanges{% endblock %}
+
+{% block body %}
+    <h1>Echanges</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdEchange</th>
+                <td>{{ echange.idEchange }}</td>
+            </tr>
+            <tr>
+                <th>Produit à échanger</th>
+                <td>{{ echange.produitEchange.nomProduit}}</td>
+            </tr>
+
+            <tr>
+                <th>Produit offert</th>
+                <td>{{ echange.produitOffert.nomProduit}}</td>
+            </tr>
+
+            <tr>
+                <th>Statut</th>
+                <td>{{ echange.statut }}</td>
+            </tr>
+             
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ echange.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_echanges_back_index') }}">back to list</a>
+
+    <a href="{{ path('app_echanges_back_edit', {'idEchange': echange.idEchange}) }}">edit</a>
+
+    {{ include('echanges/_delete_form.html.twig') }}
+{% endblock %}

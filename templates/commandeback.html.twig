@@ -1,17 +1,17 @@
-{% extends 'back.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block body %}
     <div class="col-lg-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Commande</h4>
-                <form method="GET" action="{{ path('app_back') }}">
+                <form method="GET" action="{{ path('app_backcomm') }}">
     <div class="input-group mb-3">
         <input type="text" class="form-control" name="q" value="{{ search }}" placeholder="Recherche...">
         <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
     </div>
 </form>
-   <form method="GET" action="{{ path('app_back') }}">
+   <form method="GET" action="{{ path('app_backcomm') }}">
         <div class="input-group">
             <select name="sort" class="form-select">
                 <option value="">Trier par total</option>
@@ -54,7 +54,7 @@
 
                                 </td>
                                 <td>
-                                    <a class="btn btn-danger" href="{{ path('app_supprimer',{'id':c.getIdCommande()}) }}">Supprimer</a>
+                                    <a class="btn btn-danger" href="{{ path('app_supprimercomm',{'id':c.getIdCommande()}) }}">Supprimer</a>
                                 </td>
                             </tr>
                             {% endfor %}
