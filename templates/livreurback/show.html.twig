@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_livreur_index') }}">back to list</a>
+    <a href="{{ path('app_livreur_back_new') }}">back to list</a>
 
-    <a href="{{ path('app_livreur_edit', {'idLivreur': livreur.idLivreur}) }}">edit</a>
+    <a href="{{ path('app_livreur_back_new', {'idLivreur': livreur.idLivreur}) }}">edit</a>
 
-    {{ include('livreur/_delete_form.html.twig') }}
+    {{ include('livreurback/_delete_form.html.twig') }}
 {% endblock %}

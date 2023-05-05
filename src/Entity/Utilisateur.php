@@ -236,6 +236,9 @@ class Utilisateur
     {
         $this->reset_token = $reset_token;
     }
-
-}
+    public function __toString()
+    {   
+        return $this->nom; 
+    }
+}   
 

@@ -1,25 +1,27 @@
 <?php
 
 namespace App\Controller;
-use HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Panier;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use HWI\Bundle\OAuthBundle\Controller\ConnectController;
+use App\Form\ForgetPasswordType;
+use Symfony\Component\Mime\Email;
 use App\Repository\UtilisateurRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use HWI\Bundle\OAuthBundle\Controller\ConnectController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use HWI\Bundle\OAuthBundle\Security\Http\ResourceOwnerMap;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
-use App\Form\ForgetPasswordType;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Knp\Component\Pager\Event\Subscriber\Paginate\Doctrine\ORM\QueryBuilderSubscriber;
+
 
 
 
@@ -139,7 +141,7 @@ public function indexAjouter(Request $request): Response
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_produit_index1');
+        return $this->redirectToRoute('app_login');
     }
 
     return $this->render('main/register.html.twig', [
@@ -156,7 +158,7 @@ public function indexAjouter(Request $request): Response
         $users = $this->getDoctrine()->getManager()->getRepository(Utilisateur::class)->findAll();
         $us = $utilisateurRepository->findAll();
     //la méthode utilise le PaginatorInterface pour paginer les résultats. Le nombre d'éléments par page est fixé à 2.
-    $us = $paginator->paginate($us, $request->query->getInt('page', 1), 2);
+    // $us = $paginator->paginate($us, $request->query->getInt('page', 1), 2);
 
     
         return $this->render('main/afficher.html.twig', [

@@ -71,6 +71,12 @@ class ReclamationsController extends AbstractController
         Request $request,
         ReclamationRepository $reclamationRepository
     ): Response {
+        $idUsercon=1;
+        $entityManager=$this->getDoctrine()->getManager();
+        $panier = $entityManager->getRepository(Panier::class)->findBy([
+            'idUser' => $idUsercon
+        ]);
+        $count=count($panier);
         $reclamation = new Reclamations();
         $form = $this->createForm(ReclamationsType::class, $reclamation);
         $form->handleRequest($request);
@@ -82,6 +88,7 @@ class ReclamationsController extends AbstractController
             return $this->redirectToRoute(
                 'app_reclamations_index',
                 [],
+                
                 Response::HTTP_SEE_OTHER
             );
         }
@@ -89,6 +96,7 @@ class ReclamationsController extends AbstractController
         return $this->renderForm('reclamations/new.html.twig', [
             'reclamation' => $reclamation,
             'form' => $form,
+            'panier_count' => $count,
         ]);
     }
 

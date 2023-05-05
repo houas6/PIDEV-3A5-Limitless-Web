@@ -41,10 +41,10 @@ class EchangesController extends AbstractController
 
 
 
-                        $echanges = $paginator->paginate(
-                        $echanges,
-                        $request->query->getInt('page', 1),2
-                        );
+                        // $echanges = $paginator->paginate(
+                        // $echanges,
+                        // $request->query->getInt('page', 1),2
+                        // );
 
 
         return $this->render('echangesback/index.html.twig', [
@@ -56,6 +56,12 @@ class EchangesController extends AbstractController
     #[Route('/new', name: 'app_echanges_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EchangesRepository $echangesRepository): Response
     {
+        $idUsercon=1;
+        $entityManager=$this->getDoctrine()->getManager();
+        $panier = $entityManager->getRepository(Panier::class)->findBy([
+            'idUser' => $idUsercon
+        ]);
+        $count=count($panier);
         $echange = new Echanges();
         $form = $this->createForm(Echanges1Type::class, $echange);
         $form->handleRequest($request);
@@ -72,6 +78,7 @@ class EchangesController extends AbstractController
         return $this->renderForm('echanges/new.html.twig', [
             'echange' => $echange,
             'form' => $form,
+            'panier_count' => $count,
         ]);
     }
     //update echange back

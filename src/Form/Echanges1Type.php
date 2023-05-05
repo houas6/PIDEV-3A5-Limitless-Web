@@ -26,7 +26,7 @@ class Echanges1Type extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->where('p.idUser = :userId')
-                        ->setParameter('userId', 1);
+                        ->setParameter('userId', 12);
                 },
             ])
             ->add('produitOffert', EntityType::class, [
@@ -35,7 +35,7 @@ class Echanges1Type extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->where('p.idUser = :userId')
-                        ->setParameter('userId', 23);
+                        ->setParameter('userId', 1);
                 },
             ])
         ;

@@ -39,11 +39,11 @@ class ReponseReclamationController extends AbstractController
     ): Response {
         $reponse_reclamations = $reponseReclamationRepository->findAll();
         //la méthode utilise le PaginatorInterface pour paginer les résultats. Le nombre d'éléments par page est fixé à 2.
-        $reponse_reclamations = $paginator->paginate(
-            $reponse_reclamations,
-            $request->query->getInt('page', 1),
-            2
-        );
+        // $reponse_reclamations = $paginator->paginate(
+        //     $reponse_reclamations,
+        //     $request->query->getInt('page', 1),
+        //     2
+        // );
 
         return $this->render('reponse_reclamation/index.html.twig', [
             'reponse_reclamations' => $reponse_reclamations,
@@ -71,15 +71,15 @@ class ReponseReclamationController extends AbstractController
     ) {
         $dompdf = new Dompdf();
         ///ajouter notre logo personnalisé
-        $logo = file_get_contents(
-            'product-7.jpg '
-        );
+        // $logo = file_get_contents(
+        //     'product-7.jpg '
+        // );
       //  $logobase64 = base64_encode($logo); //convertir le logo en une chaîne base64
         $reponse = $reponseRepository->findAll();
         ////Ajout de la liste des reponses et le logo personnalisé dans le pdf
         $html = $this->renderView('reponse_reclamation/pdf_file.html.twig', [
             'reponse' => $reponse,
-            'logo'    => $logo,
+            // 'logo'    => $logo,
            // 'logobase64' => $logobase64,
         ]);
 

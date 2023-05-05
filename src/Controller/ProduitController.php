@@ -22,24 +22,12 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
-    public function index(Request $request , EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
-   {
-    $produits = $entityManager
-            ->getRepository(Produit::class)
-            ->findAll();
-            
-          
-         
-    $produits = $paginator->paginate(
-    $produits,
-    $request->query->getInt('page', 1),2
-);
-    return $this->render('produit/index.html.twig', [
-    'produits' => $produits,
-]);
-
-}
-
+    public function index(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/index.html.twig', [
+            'produits' => $produitRepository->findAll(),
+        ]);
+    }
 
     /**
  * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
