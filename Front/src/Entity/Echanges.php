@@ -5,6 +5,7 @@ use App\Repository\EchangesRepository;
 use App\Entity\Produit;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Echanges
  *
@@ -20,33 +21,9 @@ class Echanges
      * @ORM\Column(name="id_echange", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *@Groups("echanges:read")
      */
     private $idEchange;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="statut", type="string", length=20, nullable=false)
-     */
-    private $statut = 'en cours';
-
-    /**
-     * @var string
-     *  * @Assert\NotBlank(message="commentaire doit etre non vide")
-     * 
-     * @ORM\Column(name="commentaire", type="string", length=50, nullable=false)
-     */
-    private $commentaire;
-
-    /**
-     * @var App\Entity\Produit|null
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Produit")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="produit_echange", referencedColumnName="id_produit")
-     * })
-     */
-    private $produitEchange;
 
     /**
      * @var App\Entity\Produit|null
@@ -55,8 +32,38 @@ class Echanges
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="produit_offert", referencedColumnName="id_produit")
      * })
+     *@Groups("echanges:read")
      */
     private $produitOffert;
+     
+    /**
+     * @var App\Entity\Produit|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="produit_echange", referencedColumnName="id_produit")
+     * })
+     *@Groups("echanges:read")
+     */
+    private $produitEchange;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string", length=20, nullable=false)
+     *@Groups("echanges:read")
+     */
+    private $statut = 'en cours';
+
+    /**
+     * @var string
+     *  * @Assert\NotBlank(message="commentaire doit etre non vide")
+     * 
+     * @ORM\Column(name="commentaire", type="string", length=50, nullable=false)
+     *@Groups("echanges:read")
+     */
+    private $commentaire;
+
 
     public function getIdEchange(): ?int
     {
@@ -104,7 +111,7 @@ class Echanges
         return $this->produitOffert;
     }
 
-    public function setProduitOffert(?Produit $produitOffert): self
+    public function setProduitOffert(?Produit $produitOffert): self 
     {
         $this->produitOffert = $produitOffert;
 

@@ -12,7 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/produit')]
 class ProduitController extends AbstractController
@@ -24,7 +27,15 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
-
+    #[Route('/afficheMobp', name: 'afficheMobp')]
+    public function show_mobilep(ProduitRepository $produitRepository,NormalizerInterface $normalizer): Response
+    {
+        $produits=$produitRepository->findAll();
+        $jsonContent = $normalizer->normalize($produits, 'json', ['groups' => 'produits:read']);
+        dump( $jsonContent);
+        return new Response(json_encode($jsonContent));
+       
+    }
     /**
  * @Route("/produit/new", name="produit_new", methods={"GET","POST"})
  */

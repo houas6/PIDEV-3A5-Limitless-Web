@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Produit
  *
@@ -20,6 +20,7 @@ class Produit
      * @ORM\Column(name="id_produit", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *@Groups("produits:read")
      */
     private $id_produit;
 
@@ -27,11 +28,12 @@ class Produit
      * @var string
      *  * @Assert\NotBlank(message=" nom doit etre non vide")
      * @Assert\Length(
-     *      min = 5,
-     *      minMessage=" Entrer un nom au minimum de 5 caracteres"
+     *      min = 4,
+     *      minMessage=" Entrer un nom au minimum de 4 caracteres"
      *
      *     )
      * @ORM\Column(name="nom_produit", type="string", length=30, nullable=false)
+     *@Groups("produits:read")
      */
     private $nomproduit;
 
@@ -40,6 +42,7 @@ class Produit
      ** @Assert\NotBlank(message=" prix doit etre non vide")
      * @Assert\Positive
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     *@Groups("produits:read")
      */
     private $prix;
 
@@ -52,6 +55,7 @@ class Produit
      *
      *     )
      * @ORM\Column(name="description", type="string", length=30, nullable=false)
+     *@Groups("produits:read")
      */
     private $description;
 
@@ -59,6 +63,7 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=30, nullable=false)
+     *@Groups("produits:read")
      */
     private $image;
 
@@ -69,6 +74,7 @@ class Produit
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
+     *@Groups("produits:read")
      */
     private $idUser;
 
@@ -79,13 +85,17 @@ class Produit
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idcategorie", referencedColumnName="idcategorie")
      *  })
+     * *@Groups("produits:read")
      */
     private $idcategorie;
 
 
     
 
-    
+    public function getIdproduit(): ?int
+    {
+        return $this->id_produit;
+    }
 
     public function getId_produit(): ?int
     {

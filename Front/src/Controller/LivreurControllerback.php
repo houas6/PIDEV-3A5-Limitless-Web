@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/livreurback')]
 class LivreurControllerback extends AbstractController
 {
-//****************** mobile ********************
+//****************** mobile ****** **************
 //************afficher******************
 #[Route('/afficheMob', name: 'afficheMob')]
     public function show_mobile(LivreurRepository $livreurRepository,NormalizerInterface $normalizer): Response
