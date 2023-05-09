@@ -27,6 +27,7 @@ class UtilisateurType extends AbstractType
             ->add('cin')
             ->add('numero')
             ->add('role')
+            ->add('reset_token')
             ->add('password',RepeatedType::class, [
                 'type'=>PasswordType::class,
                 'first_options'=>['label'=>'Mot de passe'],

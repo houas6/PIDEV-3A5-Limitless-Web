@@ -46,7 +46,10 @@
                         {{ form_widget(f.role, {'attr': {'class': 'form-control', 'placeholder': 'Votre role', 'style': 'display:none;', 'value': 'client'}}) }}
                         {{ form_errors(f.role, {'attr': {'class': 'text-danger'}}) }}
                     </div>
-
+                    <div class="form-group">
+                        {{ form_widget(f.reset_token, {'attr': {'class': 'form-control', 'placeholder': 'Votre role', 'style': 'display:none;', 'value': '0'}}) }}
+                        {{ form_errors(f.reset_token, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
                     <div class="form-group">
                         {{ form_label(f.password.first, 'Mot de passe :', {'label_attr': {'class': 'font-weight-bold'}}) }}
                         {{ form_widget(f.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
