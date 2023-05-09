@@ -16,7 +16,10 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Validator\Constraints\DateTime;
 use App\Entity\Utilisateur;
-
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 #[Route('/reponse/reclamation')]
 
 class ReponseReclamationController extends AbstractController
@@ -49,7 +52,17 @@ class ReponseReclamationController extends AbstractController
             'reponse_reclamations' => $reponse_reclamations,
         ]);
     }
-
+    #[Route('/appjoin/{id}', name: 'app_join', methods: ['GET'])]
+    public function affapp(
+        ReclamationRepository $reclamationRepository,
+        $id
+    ): Response {
+        return $this->render('reclamations/appjoin.html.twig', [
+            'reclamations' => $reclamationRepository->findBy([
+                'id' => $id,
+            ]),
+        ]);
+    }
     #[Route('/appshow/{id}', name: 'appshow', methods: ['GET'])]
     public function appshow(
         ReclamationRepository $reclamationRepository,
@@ -61,8 +74,6 @@ class ReponseReclamationController extends AbstractController
             ]),
         ]);
     }
-
-
 
     #[Route('/pdf', name: 'pdft', methods: ['GET'])]
     public function index_pdf(
@@ -95,12 +106,16 @@ class ReponseReclamationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{idreclamation}', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
     public function new(
         MailerInterface $mailer,
         Request $request,
-        ReponseReclamationRepository $reponseReclamationRepository
+        ReponseReclamationRepository $reponseReclamationRepository,
+        ReclamationRepository $reclamationRepository
     ): Response {
+        $reclamation = $reclamationRepository->find(
+            $request->get('idreclmaation')
+        );
         $idUsercon = 1;
         $entityManager = $this->getDoctrine()->getManager();
         $utilisateur = $entityManager
@@ -109,6 +124,7 @@ class ReponseReclamationController extends AbstractController
                 'idUser' => $idUsercon,
             ]);
         $reponseReclamation = new ReponseReclamation();
+        $reponseReclamation->setReclamation($reclamation);
         $form = $this->createForm(
             ReponseReclamationType::class,
             $reponseReclamation
@@ -552,5 +568,75 @@ class ReponseReclamationController extends AbstractController
         }
 
         return new Response($message);
+    }
+
+    #[Route("/createReponse/{idRec}/{contenu}/", name: "addReponseJSON", methods: ['POST'])]
+    public function addReponseJSON(
+        Request $request,
+        NormalizerInterface $normalizer,
+        ReclamationRepository $reclamationRepository
+    ): JsonResponse {
+        $entityManager = $this->getDoctrine()->getManager();
+        $reclamation = $reclamationRepository->find($request->get('idRec'));
+        $reclamation->setEtat('resolu');
+        $reclamationRepository->save($reclamation, true);
+        $reponse = new ReponseReclamation();
+        $reponse->setReclamations($reclamation);
+        $reponse->setContenu($request->get('contenu'));
+        $entityManager->persist($reponse);
+        $entityManager->flush();
+
+        $jsonContent = $normalizer->normalize($reponse, 'json', [
+            'groups' => 'reponses',
+        ]);
+
+        return new JsonResponse($jsonContent, JsonResponse::HTTP_CREATED);
+    }
+
+    #[Route('/mobile/deleteReponse/{id}/', name: "deleteReponseJSON")]
+    public function deleteReponseJSON(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em
+            ->getRepository(ReponseReclamation::class)
+            ->find($request->get('id'));
+
+        if (!$reponse) {
+            throw $this->createNotFoundException(
+                'No reponse found for id ' . $id
+            );
+        }
+
+        $em->remove($reponse);
+        $em->flush();
+
+        return new JsonResponse(
+            ['message' => 'reponse deleted successfully'],
+            JsonResponse::HTTP_OK
+        );
+    }
+    #[Route('/mobile/listReponse/', name: 'mobile_listReponse')]
+    public function listReponse(
+        Request $request,
+        ReponseReclamationRepository $reponseRepository
+    ): Response {
+        $existingReponses = $reponseRepository->findAll();
+
+        if (!empty($existingReponses)) {
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = [];
+
+            foreach ($existingReponses as $reponse) {
+                $formatted[] = $serializer->normalize([
+                    'idReponse' => $reponse->getId(),
+                    'Contenu' => $reponse->getContenu(),
+                    'Reclamation' => $reponse->getReclamations(),
+                ]);
+            }
+
+            return new JsonResponse($formatted);
+        } else {
+            return new JsonResponse([]);
+        }
     }
 }

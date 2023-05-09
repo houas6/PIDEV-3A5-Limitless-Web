@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Reclamations
  *
- * @ORM\Table(name="reclamations", indexes={@ORM\Index(name="IDX_1CAD6B76C895D8ED", columns={"reponse_reclamation_id"})})
+ * @ORM\Table(name="reclamations")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\ReclamationRepository")
 
@@ -61,14 +61,15 @@ class Reclamations
     private $description;
 
     /**
-     * @var \App\Entity\GestionDesReclamations
+     * @var \App\Entity\Reclamations
 
-     * @ORM\ManyToOne(targetEntity="ReponseReclamation")
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="reponse_reclamation_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id_user")
      * })
      */
-    private $reponseReclamation;
+    private ?Utilisateur $Utilisateur = null;
+    private $Reclamation;
 
     public function getId(): ?int
     {
@@ -98,17 +99,16 @@ class Reclamations
 
         return $this;
     }
-
-    public function getReponseReclamation(): ?ReponseReclamation
+    public function getUtilisateur(): ?Utilisateur
     {
-        return $this->reponseReclamation;
+        return $this->Utilisateur;
     }
 
-     public function setReponseReclamation(
-        ?ReponseReclamation $reponseReclamation
-    ): self {
-        $this->reponseReclamation = $reponseReclamation;
+    public function setUtilisateur(?Utilisateur $Utilisateur): self
+    {
+        $this->Utilisateur = $Utilisateur;
 
         return $this;
     }
+    
 }

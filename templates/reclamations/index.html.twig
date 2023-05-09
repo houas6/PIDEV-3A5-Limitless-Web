@@ -4,38 +4,34 @@
   Reclamations index
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('input[name="search"]').on('input', function () {
-                var searchTerm = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ path('app_reclamation_recherche') }}",
-                    data: { search: searchTerm },
-                    success: function (response) {
-                        $('#reclamation-list').html(response);
-                    }
-                });
-            });
-        });
-    </script>
+  {{ parent() }}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () { $('input[name="search"]').on('input',
+    function () { var searchTerm = $(this).val(); $.ajax({ type: "POST", url: "{{
+      path('app_reclamation_recherche')
+    }}", data: { search: searchTerm }, success: function (response) {
+    $('#reclamation-list').html(response); } }); }); });
+  </script>
 {% endblock %}
 
 {% block body %}
-    <div class="col-lg-4 col-6 text-left">
-<form method="post" action="{{ path('app_reclamation_recherche') }}">
-<div class="input-group">
-<input type="text" name="search" class="form-control" placeholder="Search for products">
-<div class="input-group-append">
-<button class="input-group-text bg-transparent text-primary" type="submit">
-<i class="fa fa-search"></i>
-</button>
-</div>
-</div>
-</form>
-</div>
+  <div class="col-lg-4 col-6 text-left">
+    <form method="post" action="{{ path('app_reclamation_recherche') }}">
+      <div class="input-group">
+        <input type="text"
+          name="search"
+          class="form-control"
+          placeholder="Search for products" />
+        <div class="input-group-append">
+          <button class="input-group-text bg-transparent text-primary"
+            type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <table class="table">
     <thead>
@@ -49,7 +45,7 @@
         <th>
           actions
         </th>
-         <th>
+        <th>
           reclamations
         </th>
       </tr>
@@ -64,12 +60,16 @@
             {{ reclamation.description }}
           </td>
           <td>
-            <a href="{{path('app_reclamations_show',{id: reclamation.id})}}">
+            <a href="{{
+              path(
+                'app_reclamations_show',
+                {
+                  id: reclamation.id
+                }
+              )
+              }}">
               show
             </a>
-          </td>
-          <td>
-             <a class="btn btn-danger" href="{{path('app_join',{id: reclamation.reponseReclamation.getId})}}">afficher</a>
           </td>
         </tr>
       {% else %}

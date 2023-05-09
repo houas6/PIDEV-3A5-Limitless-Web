@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Reclamations;
+use App\Entity\Utilisateur;
 use App\Form\ReclamationsType;
 use App\Repository\ReclamationRepository;
 use App\Repository\ReponseReclamationRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,17 +33,6 @@ class ReclamationsController extends AbstractController
             'reclamations' => $reclamationRepository->findAll(),
         ]);
     }
-    #[Route('/appjoin/{id}', name: 'app_join', methods: ['GET'])]
-    public function affapp(
-        ReponseReclamationRepository $reponseReclamationRepository,
-        $id
-    ): Response {
-        return $this->render('reclamations/appjoin.html.twig', [
-            'reclamations' => $reponseReclamationRepository->findBy([
-                'id' => $id,
-            ]),
-        ]);
-    }
 
     #[Route('/rechercheReclamation', name: 'app_reclamation_recherche')]
     public function rechercheReclamation(
@@ -58,9 +49,13 @@ class ReclamationsController extends AbstractController
     #[Route('/new', name: 'app_reclamations_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        ReclamationRepository $reclamationRepository
+        ReclamationRepository $reclamationRepository,
+        UtilisateurRepository $userRepository
     ): Response {
+        $user = new Utilisateur();
+        $user = $userRepository->find(1);
         $reclamation = new Reclamations();
+        $reclamation->setUtilisateur($user);
         $form = $this->createForm(ReclamationsType::class, $reclamation);
         $form->handleRequest($request);
 
@@ -135,17 +130,19 @@ class ReclamationsController extends AbstractController
             Response::HTTP_SEE_OTHER
         );
     }
-    #[Route("/createReclamations/{etat}/{description}/", name: "addReclamationsJSON", methods: ['POST'])]
+    #[Route("/createReclamations/{etat}/{description}/{iduser}/", name: "addReclamationsJSON", methods: ['POST'])]
     public function addReclamationsJSON(
         Request $request,
-        NormalizerInterface $normalizer
+        NormalizerInterface $normalizer,
+        UtilisateurRepository $utilisateurRepository
     ): JsonResponse {
         $entityManager = $this->getDoctrine()->getManager();
-
+        $user = new Utilisateur();
+        $user = $utilisateurRepository->find($request->get('iduser'));
         $reclamation = new Reclamations();
         $reclamation->setEtat($request->get('etat'));
         $reclamation->setDescription($request->get('description'));
-
+        $reclamation->setUtilisateur($user);
         $entityManager->persist($reclamation);
         $entityManager->flush();
 
@@ -172,6 +169,7 @@ class ReclamationsController extends AbstractController
                     'idReclamation' => $reclamation->getId(),
                     'etat' => $reclamation->getEtat(),
                     'description' => $reclamation->getDescription(),
+                    'user' => $reclamation->getUtilisateur(),
                 ]);
             }
 

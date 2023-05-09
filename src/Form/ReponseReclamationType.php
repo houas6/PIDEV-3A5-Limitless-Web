@@ -9,11 +9,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReponseReclamationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('contenu')
-        ;
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
+        $builder->add('contenu')->add('Reclamation');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
