@@ -9,12 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
+
 
 
 class MobileController extends AbstractController
 {
     /**
-     * @Route("/register/mobile", name="register")
+     * @Route("/mobile", name="register")
      */
     public function register(Request $request): Response
     {
@@ -51,5 +57,41 @@ class MobileController extends AbstractController
         // Redirection vers la page de profil de l'utilisateur nouvellement créé
         return $this->redirectToRoute('profile');
     }
+
+    /**
+ * @Route("/mobile/signin", name="signin")
+ */
+public function signin(Request $request, SessionInterface $session): Response
+{
+    $mail = $request->query->get("mail");
+    $password = $request->query->get("password");
+
+    // Recherche de l'utilisateur par e-mail et mot de passe
+    $userRepository = $this->getDoctrine()->getRepository(Utilisateur::class);
+    $user = $userRepository->findOneBy([
+        'mail' => $mail,
+        'password' => $password,
+    ]);
+
+    // Si l'utilisateur n'est pas trouvé, retourner une erreur
+    if (!$user) {
+        return new Response("Echec d'authentification: adresse e-mail ou mot de passe incorrect");
+    }
+    else {
+        $serializer= new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+        return new JsonResponse($formatted);
+
+    }
+
+    // Stockage des informations utilisateur dans la session
+    $session->set('user_id', $user->getIdUser());
+    $session->set('user_role', $user->getRole());
+
+    // Redirection vers la page de profil de l'utilisateur connecté
+    return $this->redirectToRoute('app_afficher');
+    
+}
+
 }
 
